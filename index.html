@@ -1,440 +1,499 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Giorgio Morra — Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #f2efe6;
-    --bg-alt: #ebe6d8;
-    --text: #1c1b18;
-    --text-dim: #706b5e;
-    --accent: #c1602c;
-    --border: #dcd6c4;
+    --bg: #fafafa;
+    --panel: #f1f2f4;
+    --text: #1a1b1e;
+    --text-dim: #6a6e76;
+    --accent: #146c7a;
+    --border: #e2e3e6;
+    --dot: rgba(26,27,30,0.08);
   }
   html[data-theme="dark"] {
-    --bg: #171613;
-    --bg-alt: #201f1b;
-    --text: #ece8de;
-    --text-dim: #9a9587;
-    --accent: #e0793f;
-    --border: #322f28;
+    --bg: #121316;
+    --panel: #1a1c20;
+    --text: #eef0f2;
+    --text-dim: #9195a0;
+    --accent: #4fc2cf;
+    --border: #2a2c31;
+    --dot: rgba(238,240,242,0.08);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
+  
+  /* --- NEW BACKGROUND IMPLEMENTATION --- */
   body {
-    background: var(--bg);
+    background-color: var(--bg);
     color: var(--text);
     font-family: 'Inter', -apple-system, sans-serif;
-    line-height: 1.6;
-    transition: background 0.2s ease, color 0.2s ease;
-  }
-  .wrap {
-    max-width: 1240px;
-    margin: 0 auto;
-    padding: 0 44px;
-  }
-  .eyebrow {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-dim);
+    line-height: 1.65;
+    font-size: 16px;
   }
 
-  /* Nav */
-  nav {
-    border-bottom: 1px solid var(--border);
+  /* Spatial navigation grid and waypoints */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      radial-gradient(circle at 50% 50%, var(--accent) 1.5px, transparent 2px),
+      linear-gradient(var(--dot) 1px, transparent 1px),
+      linear-gradient(90deg, var(--dot) 1px, transparent 1px),
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size:
+      100px 100px,
+      20px 20px,
+      20px 20px,
+      100px 100px,
+      100px 100px;
+    background-position:
+      -1px -1px,
+      -1px -1px,
+      -1px -1px,
+      -1px -1px,
+      -1px -1px;
   }
-  nav .wrap {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 76px;
-  }
-  nav .brand {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-  nav .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-  }
-  nav .nav-links a {
-    color: var(--text);
-    text-decoration: none;
-    font-size: 0.95rem;
-  }
-  nav .nav-links a:hover { color: var(--accent); }
-  nav .cv {
-    background: var(--accent);
-    color: #fff !important;
-    padding: 8px 18px;
-    border-radius: 4px;
-    font-size: 0.85rem !important;
-  }
-  .theme-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    border: 1px solid var(--border);
-    border-radius: 50%;
-    background: none;
-    cursor: pointer;
-    color: var(--text);
-    transition: border-color 0.15s ease;
-  }
-  .theme-toggle:hover { border-color: var(--accent); }
-  .theme-toggle svg { width: 17px; height: 17px; }
-  .theme-toggle .icon-moon { display: none; }
-  html[data-theme="dark"] .theme-toggle .icon-sun { display: none; }
-  html[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
 
-  /* Hero */
-  .hero {
-    position: relative;
-    padding: 90px 0 0;
-    overflow: hidden;
+  /* Asymmetrical field of view (Sensor FoV / Lidar sweep simulation) */
+  body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
+    pointer-events: none;
+    background: radial-gradient(circle at 75% 25%, var(--accent), transparent 55%);
+    opacity: 0.04;
   }
-  .hero-grid {
-    display: grid;
-    grid-template-columns: 1.3fr 0.7fr;
-    gap: 40px;
-    align-items: center;
-    position: relative;
-    z-index: 2;
+
+  /* Increase sensor glow intensity in dark mode */
+  html[data-theme="dark"] body::after {
+    opacity: 0.12;
   }
-  .hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: clamp(2.6rem, 5.4vw, 4.6rem);
-    line-height: 1.05;
-    margin: 20px 0 28px;
+  /* ------------------------------------- */
+
+  a { color: var(--accent); }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
   }
-  .hero h1 em {
-    display: block;
-    font-style: italic;
-    color: var(--accent);
-    font-weight: 600;
-  }
-  .hero p.lede {
-    max-width: 480px;
-    font-size: 1.05rem;
-    color: #43413a;
-    margin-bottom: 34px;
-  }
-  .scroll-cue {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.78rem;
-    color: var(--text-dim);
-  }
-  .hero-photo {
-    position: relative;
-    display: flex;
-    justify-content: center;
-  }
-  .hero-photo .ring {
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  .skip-link {
     position: absolute;
-    inset: -60px;
+    left: -9999px;
+    top: 0;
+    background: var(--accent);
+    color: #fff;
+    padding: 10px 16px;
+    z-index: 100;
   }
-  .hero-photo img, .hero-photo .avatar {
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 6px solid var(--bg);
-    box-shadow: 0 0 0 1px var(--border);
-    background: var(--bg-alt);
-  }
-  .hero-photo .avatar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Playfair Display', serif;
-    font-size: 3.5rem;
-    color: var(--text-dim);
+  .skip-link:focus { left: 12px; top: 12px; }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 100vh;
   }
 
-  /* Stats */
-  .stats {
-    margin-top: 90px;
-    border-top: 1px solid var(--border);
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-  }
-  .stats div {
-    padding: 34px 44px;
+  /* Sidebar */
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
     border-right: 1px solid var(--border);
-  }
-  .stats div:last-child { border-right: none; }
-  .stats .num {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 2.4rem;
-    color: var(--text);
-  }
-  .stats .label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text-dim);
-    margin-top: 6px;
-  }
-
-  /* Projects */
-  .projects {
-    padding: 90px 0 110px;
-  }
-  .projects-head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 20px;
-    margin-bottom: 40px;
-  }
-  .projects-head h2 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 2.2rem;
-  }
-  .projects-head .count {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.8rem;
-    color: var(--text-dim);
-  }
-  .project-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-  }
-  .card {
-    background: var(--bg);
-    padding: 28px;
-    text-decoration: none;
-    color: inherit;
+    padding: 40px 30px;
     display: flex;
     flex-direction: column;
-    transition: background 0.15s ease;
+    justify-content: space-between;
   }
-  .card:hover { background: var(--bg-alt); }
-  .card .thumb {
-    width: 100%;
-    aspect-ratio: 16/9;
-    border-radius: 4px;
-    background: var(--bg-alt);
-    border: 1px solid var(--border);
-    margin-bottom: 20px;
-    object-fit: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--text-dim);
-    text-align: center;
-  }
-  .card .year {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.78rem;
-    color: var(--text-dim);
-    margin-bottom: 8px;
-  }
-  .card h3 {
-    font-family: 'Playfair Display', serif;
+  .sidebar .id .name {
     font-weight: 700;
-    font-size: 1.3rem;
+    font-size: 1.05rem;
     margin-bottom: 4px;
   }
-  .card .subtitle {
-    font-size: 0.88rem;
-    color: var(--text-dim);
-    margin-bottom: 14px;
-  }
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 16px;
-  }
-  .tags span {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.68rem;
-    border: 1px solid var(--border);
-    padding: 3px 8px;
-    border-radius: 3px;
-    color: var(--text-dim);
-  }
-  .card .desc {
-    font-size: 0.92rem;
-    color: #46443c;
-  }
-
-  /* Footer */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 28px 0;
-  }
-  footer .wrap {
-    display: flex;
-    justify-content: space-between;
+  .sidebar .id .role {
     font-size: 0.85rem;
     color: var(--text-dim);
   }
-  footer a { color: var(--text-dim); }
+  .sidebar nav {
+    margin-top: 44px;
+  }
+  .sidebar nav a {
+    display: block;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.9rem;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .sidebar nav a .num {
+    color: var(--text-dim);
+    margin-right: 8px;
+  }
+  .sidebar nav a:hover { color: var(--accent); }
 
-  @media (max-width: 860px) {
-    .wrap { padding: 0 22px; }
-    .hero-grid { grid-template-columns: 1fr; }
-    .hero-photo { order: -1; margin-bottom: 20px; }
-    .hero-photo img, .hero-photo .avatar { width: 180px; height: 180px; }
-    .stats { grid-template-columns: repeat(2, 1fr); }
-    .stats div:nth-child(2) { border-right: none; }
-    .project-grid { grid-template-columns: 1fr; }
-    nav .nav-links { gap: 18px; }
+  .sidebar .bottom {
+    margin-top: 40px;
+  }
+  .theme-btn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    padding: 10px 12px;
+    cursor: pointer;
+    margin-bottom: 22px;
+  }
+  .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .sidebar .contact-list a {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    text-decoration: none;
+    padding: 4px 0;
+  }
+  .sidebar .contact-list a:hover { color: var(--accent); }
+
+  /* Main content */
+  main {
+    padding: 60px 60px 120px;
+    max-width: 860px;
+  }
+  section {
+    padding-bottom: 64px;
+    margin-bottom: 64px;
+    border-bottom: 1px solid var(--border);
+  }
+  section:last-child { border-bottom: none; }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 26px;
+  }
+  .section-head .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--accent);
+  }
+  .section-head h2 {
+    font-size: 1.35rem;
+    font-weight: 700;
+  }
+
+  #profile p {
+    max-width: 620px;
+    color: var(--text-dim);
+    margin-bottom: 14px;
+    font-size: 1rem;
+  }
+  #profile p strong { color: var(--text); font-weight: 600; }
+
+  .facts {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    max-width: 620px;
+  }
+  .facts div {
+    border: 1px solid var(--border);
+    padding: 14px 16px;
+  }
+  .facts .k { font-size: 0.72rem; color: var(--text-dim); margin-bottom: 6px; }
+  .facts .v { font-size: 0.95rem; font-weight: 600; }
+
+  /* Skills */
+  .skill-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+  .skill-group h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .skill-group ul { list-style: none; }
+  .skill-group li {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    padding: 5px 0;
+    position: relative;
+    padding-left: 16px;
+  }
+  .skill-group li::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  /* Projects */
+  .project {
+    border: 1px solid var(--border);
+    padding: 26px;
+    margin-bottom: 20px;
+  }
+  .project:last-child { margin-bottom: 0; }
+  .project .meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+  }
+  .project h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .project .desc {
+    font-size: 0.92rem;
+    color: var(--text-dim);
+    margin-bottom: 16px;
+    max-width: 620px;
+  }
+  .project .tech-label {
+    font-size: 0.78rem;
+    color: var(--text);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .project .tech-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  .project .tech-list span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 4px 9px;
+  }
+  .project .link {
+    display: inline-block;
+    font-size: 0.85rem;
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 2px;
+  }
+
+  /* Contact */
+  .contact-table { max-width: 500px; }
+  .contact-table div {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.92rem;
+  }
+  .contact-table div:last-child { border-bottom: none; }
+  .contact-table .k { color: var(--text-dim); }
+  .contact-table a { text-decoration: none; }
+  .contact-table a:hover { text-decoration: underline; }
+
+  footer {
+    padding: 30px 60px;
+    font-size: 0.78rem;
+    color: var(--text-dim);
+  }
+
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; }
+    .sidebar {
+      position: relative;
+      height: auto;
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+    }
+    main { padding: 40px 24px 90px; }
+    .facts, .skill-grid { grid-template-columns: 1fr; }
+    footer { padding: 24px; }
   }
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="wrap">
-    <div class="brand">Giorgio Morra</div>
-    <div class="nav-links">
-      <a href="#projects">Progetti</a>
-      <a href="mailto:tuaemail@esempio.com">Contatti</a>
-      <a href="#" class="cv">CV ↗</a>
-      <button class="theme-toggle" id="themeToggle" aria-label="Cambia modalità chiara/scura">
-        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
-      </button>
-    </div>
-  </div>
-</nav>
+<a href="#main-content" class="skip-link">Skip to content</a>
 
-<section class="hero">
-  <div class="wrap hero-grid">
-    <div>
-      <div class="eyebrow">Laurea Triennale · Nome Università · Anno</div>
-      <h1>Studente di<br><em>Informatica</em></h1>
-      <p class="lede">Mi occupo di sviluppo software, algoritmi e progetti universitari che uniscono teoria e pratica.</p>
-      <div class="scroll-cue">↓ Scorri per i progetti</div>
-    </div>
-    <div class="hero-photo">
-      <svg class="ring" viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="210" cy="210" r="205" fill="none" stroke="#dcd6c4" stroke-width="1"/>
-        <circle cx="210" cy="210" r="165" fill="none" stroke="#dcd6c4" stroke-width="1"/>
-        <circle cx="60" cy="70" r="3" fill="#c1602c"/>
-      </svg>
-      <div class="avatar">GM</div>
-      <!-- Sostituisci il div qui sopra con: <img src="foto.jpg" alt="Giorgio Morra"> -->
-    </div>
-  </div>
+<div class="layout">
 
-  <div class="wrap stats">
+  <aside class="sidebar">
     <div>
-      <div class="num">3</div>
-      <div class="label">Progetti universitari</div>
-    </div>
-    <div>
-      <div class="num">2</div>
-      <div class="label">Linguaggi principali</div>
-    </div>
-    <div>
-      <div class="num">1</div>
-      <div class="label">Tesi in corso</div>
-    </div>
-    <div>
-      <div class="num">2026</div>
-      <div class="label">Anno di laurea previsto</div>
-    </div>
-  </div>
-</section>
-
-<section class="projects wrap" id="projects">
-  <div class="projects-head">
-    <h2>Progetti</h2>
-    <div class="count">3 totali</div>
-  </div>
-
-  <div class="project-grid">
-    <a class="card" href="https://github.com/giorgio-morra/nome-progetto-1" target="_blank">
-      <div class="thumb">immagine progetto 1</div>
-      <div class="year">2026</div>
-      <h3>Nome Progetto 1</h3>
-      <div class="subtitle">Nome Corso · Tipo di progetto</div>
-      <div class="tags">
-        <span>Python</span>
-        <span>Machine Learning</span>
+      <div class="id">
+        <div class="name">Giorgio Morra</div>
+        <div class="role">GNC & Autonomous Vehicles</div>
       </div>
-      <p class="desc">Breve descrizione di cosa fa il progetto e in che contesto è stato realizzato.</p>
-    </a>
 
-    <a class="card" href="https://github.com/giorgio-morra/nome-progetto-2" target="_blank">
-      <div class="thumb">immagine progetto 2</div>
-      <div class="year">2025</div>
-      <h3>Nome Progetto 2</h3>
-      <div class="subtitle">Nome Corso · Tipo di progetto</div>
-      <div class="tags">
-        <span>Java</span>
-        <span>Basi di Dati</span>
+      <nav aria-label="Page sections">
+        <a href="#profile"><span class="num mono">01</span>Profile</a>
+        <a href="#skills"><span class="num mono">02</span>Skills</a>
+        <a href="#projects"><span class="num mono">03</span>Projects</a>
+        <a href="#contact"><span class="num mono">04</span>Contact</a>
+      </nav>
+    </div>
+
+    <div class="bottom">
+      <button class="theme-btn" id="themeToggle">Theme: <span id="themeLabel">Light</span></button>
+      <div class="contact-list">
+        <a href="mailto:your.email@example.com">Email</a>
+        <a href="https://github.com/giorgio-morra" target="_blank">GitHub</a>
+        <a href="#" target="_blank">CV (PDF)</a>
       </div>
-      <p class="desc">Breve descrizione di cosa fa il progetto e in che contesto è stato realizzato.</p>
-    </a>
-  </div>
+    </div>
+  </aside>
 
-  <div class="project-grid" style="margin-top: -1px;">
-    <a class="card" href="https://github.com/giorgio-morra/nome-progetto-3" target="_blank">
-      <div class="thumb">immagine progetto 3</div>
-      <div class="year">2025</div>
-      <h3>Nome Progetto 3</h3>
-      <div class="subtitle">Nome Corso · Tipo di progetto</div>
-      <div class="tags">
-        <span>C++</span>
-        <span>Algoritmi</span>
+  <main id="main-content">
+
+    <section id="profile">
+      <div class="section-head"><span class="num">01</span><h2>Profile</h2></div>
+      <p>I am <strong>Giorgio Morra</strong>, a Master's student in Mechanical Engineering specializing in Mechatronics and Robotics at Politecnico di Milano. I focus on Guidance, Navigation, and Control (GNC) for all types of autonomous vehicles—designing perception, control, and navigation systems and bringing them from simulation to hardware.</p>
+      <p>I work systematically: I define clear requirements, build through verifiable iterations, and document every project to ensure code and design choices are fully traceable.</p>
+
+      <div class="facts">
+        <div><div class="k">Institution</div><div class="v">Politecnico di Milano</div></div>
+        <div><div class="k">Degree</div><div class="v">MSc Mechanical Engineering</div></div>
+        <div><div class="k">Status</div><div class="v">Master's Student</div></div>
+        <div><div class="k">Expected Graduation</div><div class="v">2026</div></div>
       </div>
-      <p class="desc">Breve descrizione di cosa fa il progetto e in che contesto è stato realizzato.</p>
-    </a>
-  </div>
-</section>
+    </section>
 
-<footer>
-  <div class="wrap">
-    <div>© 2026 Giorgio Morra</div>
-    <div><a href="https://github.com/giorgio-morra" target="_blank">GitHub</a></div>
-  </div>
-</footer>
+    <section id="skills">
+      <div class="section-head"><span class="num">02</span><h2>Skills</h2></div>
+      <div class="skill-grid">
+        <div class="skill-group">
+          <h3>Perception</h3>
+          <ul>
+            <li>Computer Vision</li>
+            <li>SLAM</li>
+            <li>Sensor Fusion</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h3>Control</h3>
+          <ul>
+            <li>Path Planning</li>
+            <li>PID / MPC Controllers</li>
+            <li>Kinematics & Dynamics</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h3>Software</h3>
+          <ul>
+            <li>ROS 2</li>
+            <li>Python</li>
+            <li>C++</li>
+          </ul>
+        </div>
+        <div class="skill-group">
+          <h3>Tools</h3>
+          <ul>
+            <li>Simulation (Gazebo)</li>
+            <li>MATLAB / Simulink</li>
+            <li>Git</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="section-head"><span class="num">03</span><h2>Projects</h2></div>
+
+      <div class="project">
+        <div class="meta">PROJECT 01 · 2026 · Research</div>
+        <h3>Venus Variable Altitude Aerobot</h3>
+        <p class="desc">Developed a high-fidelity trajectory reconstruction and thermal finite element method modeling simulation for a Venus balloon, including a parallelized 4D atmospheric Look-Up Table.</p>
+        <div class="tech-label">Technologies:</div>
+        <div class="tech-list"><span>Python</span><span>Multi-physics Modeling</span><span>Data Processing</span></div>
+        <a class="link" href="#" target="_blank">View repository on GitHub →</a>
+      </div>
+
+      <div class="project">
+        <div class="meta">PROJECT 02 · 2025 · Academic Project</div>
+        <h3>Autonomous Navigation System</h3>
+        <p class="desc">Clear description of what the project does, what problem it solves, and what your specific role was.</p>
+        <div class="tech-label">Technologies:</div>
+        <div class="tech-list"><span>Computer Vision</span><span>C++</span></div>
+        <a class="link" href="https://github.com/giorgio-morra/project-name-2" target="_blank">View repository on GitHub →</a>
+      </div>
+
+      <div class="project">
+        <div class="meta">PROJECT 03 · 2025 · Academic Project</div>
+        <h3>Control & State Estimation</h3>
+        <p class="desc">Clear description of what the project does, what problem it solves, and what your specific role was.</p>
+        <div class="tech-label">Technologies:</div>
+        <div class="tech-list"><span>Path Planning</span><span>MATLAB</span></div>
+        <a class="link" href="https://github.com/giorgio-morra/project-name-3" target="_blank">View repository on GitHub →</a>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-head"><span class="num">04</span><h2>Contact</h2></div>
+      <div class="contact-table">
+        <div><span class="k">Email</span><a href="mailto:your.email@example.com">your.email@example.com</a></div>
+        <div><span class="k">GitHub</span><a href="https://github.com/giorgio-morra" target="_blank">github.com/giorgio-morra</a></div>
+        <div><span class="k">LinkedIn</span><a href="#" target="_blank">linkedin.com/in/giorgio-morra</a></div>
+        <div><span class="k">CV</span><a href="#" target="_blank">Download PDF</a></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer>© 2026 Giorgio Morra</footer>
 
 <script>
   (function() {
     var root = document.documentElement;
     var toggle = document.getElementById('themeToggle');
+    var label = document.getElementById('themeLabel');
     var stored = localStorage.getItem('theme');
     var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     var initial = stored || (prefersDark ? 'dark' : 'light');
-    if (initial === 'dark') root.setAttribute('data-theme', 'dark');
+
+    function apply(theme) {
+      if (theme === 'dark') {
+        root.setAttribute('data-theme', 'dark');
+        label.textContent = 'Dark';
+      } else {
+        root.removeAttribute('data-theme');
+        label.textContent = 'Light';
+      }
+    }
+    apply(initial);
 
     toggle.addEventListener('click', function() {
-      var isDark = root.getAttribute('data-theme') === 'dark';
-      if (isDark) {
-        root.removeAttribute('data-theme');
-        localStorage.setItem('theme', 'light');
-      } else {
-        root.setAttribute('data-theme', 'dark');
-        localStorage.setItem('theme', 'dark');
-      }
+      var current = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      var next = current === 'dark' ? 'light' : 'dark';
+      apply(next);
+      localStorage.setItem('theme', next);
     });
   })();
 </script>
