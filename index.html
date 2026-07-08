@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,66 +27,15 @@
     --dot: rgba(238,240,242,0.08);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  
-  /* --- NEW BACKGROUND IMPLEMENTATION --- */
   body {
     background-color: var(--bg);
+    background-image: radial-gradient(var(--dot) 1px, transparent 1px);
+    background-size: 22px 22px;
     color: var(--text);
     font-family: 'Inter', -apple-system, sans-serif;
     line-height: 1.65;
     font-size: 16px;
   }
-
-  /* Spatial navigation grid and waypoints */
-  body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1;
-    pointer-events: none;
-    background-image:
-      radial-gradient(circle at 50% 50%, var(--accent) 1.5px, transparent 2px),
-      linear-gradient(var(--dot) 1px, transparent 1px),
-      linear-gradient(90deg, var(--dot) 1px, transparent 1px),
-      linear-gradient(var(--border) 1px, transparent 1px),
-      linear-gradient(90deg, var(--border) 1px, transparent 1px);
-    background-size:
-      100px 100px,
-      20px 20px,
-      20px 20px,
-      100px 100px,
-      100px 100px;
-    background-position:
-      -1px -1px,
-      -1px -1px,
-      -1px -1px,
-      -1px -1px,
-      -1px -1px;
-  }
-
-  /* Asymmetrical field of view (Sensor FoV / Lidar sweep simulation) */
-  body::after {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -2;
-    pointer-events: none;
-    background: radial-gradient(circle at 75% 25%, var(--accent), transparent 55%);
-    opacity: 0.04;
-  }
-
-  /* Increase sensor glow intensity in dark mode */
-  html[data-theme="dark"] body::after {
-    opacity: 0.12;
-  }
-  /* ------------------------------------- */
-
   a { color: var(--accent); }
   a:focus-visible, button:focus-visible {
     outline: 2px solid var(--accent);
@@ -204,13 +153,13 @@
     font-weight: 700;
   }
 
-  #profile p {
+  #profilo p {
     max-width: 620px;
     color: var(--text-dim);
     margin-bottom: 14px;
     font-size: 1rem;
   }
-  #profile p strong { color: var(--text); font-weight: 600; }
+  #profilo p strong { color: var(--text); font-weight: 600; }
 
   .facts {
     margin-top: 30px;
@@ -341,7 +290,7 @@
 </head>
 <body>
 
-<a href="#main-content" class="skip-link">Skip to content</a>
+<a href="#main-content" class="skip-link">Vai al contenuto</a>
 
 <div class="layout">
 
@@ -349,21 +298,21 @@
     <div>
       <div class="id">
         <div class="name">Giorgio Morra</div>
-        <div class="role">GNC & Autonomous Vehicles</div>
+        <div class="role">Robotica e Veicoli Autonomi</div>
       </div>
 
-      <nav aria-label="Page sections">
-        <a href="#profile"><span class="num mono">01</span>Profile</a>
-        <a href="#skills"><span class="num mono">02</span>Skills</a>
-        <a href="#projects"><span class="num mono">03</span>Projects</a>
-        <a href="#contact"><span class="num mono">04</span>Contact</a>
+      <nav aria-label="Sezioni della pagina">
+        <a href="#profilo"><span class="num mono">01</span>Profilo</a>
+        <a href="#competenze"><span class="num mono">02</span>Competenze</a>
+        <a href="#progetti"><span class="num mono">03</span>Progetti</a>
+        <a href="#contatti"><span class="num mono">04</span>Contatti</a>
       </nav>
     </div>
 
     <div class="bottom">
-      <button class="theme-btn" id="themeToggle">Theme: <span id="themeLabel">Light</span></button>
+      <button class="theme-btn" id="themeToggle">Tema: <span id="themeLabel">Chiaro</span></button>
       <div class="contact-list">
-        <a href="mailto:your.email@example.com">Email</a>
+        <a href="mailto:tuaemail@esempio.com">Email</a>
         <a href="https://github.com/giorgio-morra" target="_blank">GitHub</a>
         <a href="#" target="_blank">CV (PDF)</a>
       </div>
@@ -372,24 +321,24 @@
 
   <main id="main-content">
 
-    <section id="profile">
-      <div class="section-head"><span class="num">01</span><h2>Profile</h2></div>
-      <p>I am <strong>Giorgio Morra</strong>, a Master's student in Mechanical Engineering specializing in Mechatronics and Robotics at Politecnico di Milano. I focus on Guidance, Navigation, and Control (GNC) for all types of autonomous vehicles—designing perception, control, and navigation systems and bringing them from simulation to hardware.</p>
-      <p>I work systematically: I define clear requirements, build through verifiable iterations, and document every project to ensure code and design choices are fully traceable.</p>
+    <section id="profilo">
+      <div class="section-head"><span class="num">01</span><h2>Profilo</h2></div>
+      <p>Sono <strong>Giorgio Morra</strong>, studente di Nome Corso presso Nome Università. Mi occupo di robotica e veicoli autonomi: progetto sistemi di percezione, controllo e navigazione, e li porto dalla simulazione all'hardware.</p>
+      <p>Lavoro in modo sistematico: definisco requisiti chiari, costruisco per iterazioni verificabili, e documento ogni progetto in modo che il codice e le scelte progettuali siano tracciabili.</p>
 
       <div class="facts">
-        <div><div class="k">Institution</div><div class="v">Politecnico di Milano</div></div>
-        <div><div class="k">Degree</div><div class="v">MSc Mechanical Engineering</div></div>
-        <div><div class="k">Status</div><div class="v">Master's Student</div></div>
-        <div><div class="k">Expected Graduation</div><div class="v">2026</div></div>
+        <div><div class="k">Istituto</div><div class="v">Nome Università</div></div>
+        <div><div class="k">Corso di laurea</div><div class="v">Nome Corso</div></div>
+        <div><div class="k">Anno</div><div class="v">Anno in corso</div></div>
+        <div><div class="k">Laurea prevista</div><div class="v">2026</div></div>
       </div>
     </section>
 
-    <section id="skills">
-      <div class="section-head"><span class="num">02</span><h2>Skills</h2></div>
+    <section id="competenze">
+      <div class="section-head"><span class="num">02</span><h2>Competenze</h2></div>
       <div class="skill-grid">
         <div class="skill-group">
-          <h3>Perception</h3>
+          <h3>Percezione</h3>
           <ul>
             <li>Computer Vision</li>
             <li>SLAM</li>
@@ -397,11 +346,11 @@
           </ul>
         </div>
         <div class="skill-group">
-          <h3>Control</h3>
+          <h3>Controllo</h3>
           <ul>
             <li>Path Planning</li>
-            <li>PID / MPC Controllers</li>
-            <li>Kinematics & Dynamics</li>
+            <li>Controllori PID / MPC</li>
+            <li>Cinematica e dinamica</li>
           </ul>
         </div>
         <div class="skill-group">
@@ -413,9 +362,9 @@
           </ul>
         </div>
         <div class="skill-group">
-          <h3>Tools</h3>
+          <h3>Strumenti</h3>
           <ul>
-            <li>Simulation (Gazebo)</li>
+            <li>Simulazione (Gazebo)</li>
             <li>MATLAB / Simulink</li>
             <li>Git</li>
           </ul>
@@ -423,44 +372,44 @@
       </div>
     </section>
 
-    <section id="projects">
-      <div class="section-head"><span class="num">03</span><h2>Projects</h2></div>
+    <section id="progetti">
+      <div class="section-head"><span class="num">03</span><h2>Progetti</h2></div>
 
       <div class="project">
-        <div class="meta">PROJECT 01 · 2026 · Research</div>
-        <h3>Venus Variable Altitude Aerobot</h3>
-        <p class="desc">Developed a high-fidelity trajectory reconstruction and thermal finite element method modeling simulation for a Venus balloon, including a parallelized 4D atmospheric Look-Up Table.</p>
-        <div class="tech-label">Technologies:</div>
-        <div class="tech-list"><span>Python</span><span>Multi-physics Modeling</span><span>Data Processing</span></div>
-        <a class="link" href="#" target="_blank">View repository on GitHub →</a>
+        <div class="meta">PROGETTO 01 · 2026 · Nome Corso</div>
+        <h3>Nome Progetto 1</h3>
+        <p class="desc">Descrizione chiara di cosa fa il progetto, quale problema risolve e qual è stato il tuo ruolo specifico.</p>
+        <div class="tech-label">Tecnologie:</div>
+        <div class="tech-list"><span>ROS 2</span><span>SLAM</span><span>Python</span></div>
+        <a class="link" href="https://github.com/giorgio-morra/nome-progetto-1" target="_blank">Vedi il repository su GitHub →</a>
       </div>
 
       <div class="project">
-        <div class="meta">PROJECT 02 · 2025 · Academic Project</div>
-        <h3>Autonomous Navigation System</h3>
-        <p class="desc">Clear description of what the project does, what problem it solves, and what your specific role was.</p>
-        <div class="tech-label">Technologies:</div>
+        <div class="meta">PROGETTO 02 · 2025 · Nome Corso</div>
+        <h3>Nome Progetto 2</h3>
+        <p class="desc">Descrizione chiara di cosa fa il progetto, quale problema risolve e qual è stato il tuo ruolo specifico.</p>
+        <div class="tech-label">Tecnologie:</div>
         <div class="tech-list"><span>Computer Vision</span><span>C++</span></div>
-        <a class="link" href="https://github.com/giorgio-morra/project-name-2" target="_blank">View repository on GitHub →</a>
+        <a class="link" href="https://github.com/giorgio-morra/nome-progetto-2" target="_blank">Vedi il repository su GitHub →</a>
       </div>
 
       <div class="project">
-        <div class="meta">PROJECT 03 · 2025 · Academic Project</div>
-        <h3>Control & State Estimation</h3>
-        <p class="desc">Clear description of what the project does, what problem it solves, and what your specific role was.</p>
-        <div class="tech-label">Technologies:</div>
+        <div class="meta">PROGETTO 03 · 2025 · Nome Corso</div>
+        <h3>Nome Progetto 3</h3>
+        <p class="desc">Descrizione chiara di cosa fa il progetto, quale problema risolve e qual è stato il tuo ruolo specifico.</p>
+        <div class="tech-label">Tecnologie:</div>
         <div class="tech-list"><span>Path Planning</span><span>MATLAB</span></div>
-        <a class="link" href="https://github.com/giorgio-morra/project-name-3" target="_blank">View repository on GitHub →</a>
+        <a class="link" href="https://github.com/giorgio-morra/nome-progetto-3" target="_blank">Vedi il repository su GitHub →</a>
       </div>
     </section>
 
-    <section id="contact">
-      <div class="section-head"><span class="num">04</span><h2>Contact</h2></div>
+    <section id="contatti">
+      <div class="section-head"><span class="num">04</span><h2>Contatti</h2></div>
       <div class="contact-table">
-        <div><span class="k">Email</span><a href="mailto:your.email@example.com">your.email@example.com</a></div>
+        <div><span class="k">Email</span><a href="mailto:tuaemail@esempio.com">tuaemail@esempio.com</a></div>
         <div><span class="k">GitHub</span><a href="https://github.com/giorgio-morra" target="_blank">github.com/giorgio-morra</a></div>
         <div><span class="k">LinkedIn</span><a href="#" target="_blank">linkedin.com/in/giorgio-morra</a></div>
-        <div><span class="k">CV</span><a href="#" target="_blank">Download PDF</a></div>
+        <div><span class="k">CV</span><a href="#" target="_blank">Scarica il PDF</a></div>
       </div>
     </section>
 
@@ -481,10 +430,10 @@
     function apply(theme) {
       if (theme === 'dark') {
         root.setAttribute('data-theme', 'dark');
-        label.textContent = 'Dark';
+        label.textContent = 'Scuro';
       } else {
         root.removeAttribute('data-theme');
-        label.textContent = 'Light';
+        label.textContent = 'Chiaro';
       }
     }
     apply(initial);
