@@ -1,0 +1,27 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+
+# Thumbnails
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDEs and editors
+*.swp
+*~
+
+# System files
+.DS_Store?
+*.db
+
+# JetBrains
+.idea/

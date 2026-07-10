@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finite Element Analysis and Dynamic Simulation of a Harbour Crane</title>
+  <style>
+    :root {
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #111;
+      background: #fff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #fff;
+      color: #111;
+    }
+    a { color: inherit; text-decoration: none; }
+    .page-wrap {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 32px 0 64px;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+      font-size: 0.92rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #444;
+    }
+    .topbar a { font-weight: 700; color: #111; }
+    .gallery-top {
+      display: grid;
+      gap: 18px;
+      margin-bottom: 32px;
+    }
+    .main-image {
+      width: 100%;
+      max-width: 760px;
+      aspect-ratio: 16 / 9;
+      margin: 0 auto;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid #eef2f5;
+      background: #f8f9fb;
+    }
+    .main-image img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      background: #f8f9fb;
+    }
+    .main-caption {
+      margin-top: 14px;
+      font-size: 0.95rem;
+      color: #555;
+      text-align: center;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .thumb-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(72px, 1fr));
+      gap: 10px;
+    }
+    .thumb {
+      border-radius: 14px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+      background: #fff;
+      padding: 0;
+      min-height: 88px;
+    }
+    .thumb.active,
+    .thumb:hover {
+      border-color: #111;
+      transform: translateY(-2px);
+    }
+    .thumb img {
+      width: 100%;
+      height: 88px;
+      object-fit: cover;
+      display: block;
+    }
+    .project-header {
+      display: grid;
+      gap: 18px;
+      margin-bottom: 24px;
+      margin-top: 32px;
+    }
+    .project-title {
+      margin: 0;
+      font-size: clamp(2.4rem, 4vw, 3.2rem);
+      line-height: 1.02;
+      font-weight: 900;
+    }
+    .topic-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 0;
+    }
+    .topic-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 32px;
+      padding: 0 12px;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      background: #fafbff;
+      color: #111;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      font-size: 0.8rem;
+    }
+    .project-block {
+      display: grid;
+      gap: 20px;
+      padding: 28px 30px;
+      border: 1px solid #eef2f5;
+      border-radius: 28px;
+      background: #f8f9fb;
+      margin-bottom: 28px;
+    }
+    .project-block h2 {
+      margin: 0;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #111;
+    }
+    .project-block p,
+    .project-block ul { margin: 0; color: #444; font-size: 1rem; line-height: 1.8; }
+    .project-block ul { padding-left: 20px; }
+    .project-block li { margin-bottom: 10px; }
+    @media (max-width: 820px) {
+      .topic-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 620px) {
+      .page-wrap { padding: 24px 16px 52px; }
+      .project-title { font-size: 2.6rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrap">
+    <div class="topbar">
+      <a href="index.html">← Back to portfolio</a>
+      <span>Project details</span>
+    </div>
+
+    <section class="project-header">
+      <div>
+        <h1 class="project-title">Finite Element Analysis and Dynamic Simulation of a Harbour Crane</h1>
+        <div class="topic-grid">
+          <div class="topic-pill">2D FEM model assembly</div>
+          <div class="topic-pill">Modal eigenvalue analysis</div>
+          <div class="topic-pill">Frequency response functions</div>
+          <div class="topic-pill">Moving-load response</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery-top">
+      <div>
+        <div class="main-image" id="mainImage">
+          <img src="Files%20and%20projects/Finite%20Element%20Analysis%20and%20Dynamic%20Simulation%20of%20a%20Harbour%20Crane/moving%20load.jpg" alt="Harbour crane moving load simulation">
+        </div>
+        <div class="main-caption" id="mainCaption">Moving load simulation on the crane structure.</div>
+      </div>
+      <div class="thumb-strip">
+        <button class="thumb active" data-src="Files%20and%20projects/Finite%20Element%20Analysis%20and%20Dynamic%20Simulation%20of%20a%20Harbour%20Crane/moving%20load.jpg" data-caption="Moving load simulation on the crane structure." aria-label="Moving load simulation">
+          <img src="Files%20and%20projects/Finite%20Element%20Analysis%20and%20Dynamic%20Simulation%20of%20a%20Harbour%20Crane/moving%20load.jpg" alt="Moving load thumbnail">
+        </button>
+        <button class="thumb" data-src="Files%20and%20projects/Finite%20Element%20Analysis%20and%20Dynamic%20Simulation%20of%20a%20Harbour%20Crane/Screenshot%202026-07-09%20at%203.37.58%20PM.png" data-caption="Static FEM model and modal analysis results." aria-label="Static FEM model">
+          <img src="Files%20and%20projects/Finite%20Element%20Analysis%20and%20Dynamic%20Simulation%20of%20a%20Harbour%20Crane/Screenshot%202026-07-09%20at%203.37.58%20PM.png" alt="Static FEM model thumbnail">
+        </button>
+        <button class="thumb" data-src="Files%20and%20projects/Finite%20Element%20Analysis%20and%20Dynamic%20Simulation%20of%20a%20Harbour%20Crane/Screenshot%202026-07-09%20at%203.39.51%20PM.png" data-caption="FRF comparison and dynamic response plots." aria-label="FRF comparison">
+          <img src="Files%20and%20projects/Finite%20Element%20Analysis%20and%20Dynamic%20Simulation%20of%20a%20Harbour%20Crane/Screenshot%202026-07-09%20at%203.39.51%20PM.png" alt="FRF comparison thumbnail">
+        </button>
+      </div>
+    </section>
+
+    <main>
+      <section class="project-block">
+        <h2>Project summary</h2>
+        <p>This project details the comprehensive structural modeling and dynamic analysis of a harbour crane utilizing the Finite Element Method (FEM). A custom 2D model was developed from the ground up to assemble the global mass, proportional damping, and stiffness matrices.</p>
+        <p>These matrices were subsequently used to solve the eigenvalue problem, extracting the structure's natural frequencies and primary vibration modes. The analysis included a static structural evaluation utilizing rotation matrices to determine the maximum nodal deflection caused by the crane's own distributed weight.</p>
+        <p>Furthermore, an advanced dynamic analysis was conducted by calculating the Frequency Response Functions (FRFs) for various input-output configurations. This included a rigorous comparison between the exact full FEM solution and the decoupled modal superposition approach to validate the frequency range accuracy.</p>
+        <p>The project culminated in a complex time-domain simulation of the crane's dynamic response when subjected to a moving load. By defining a specific kinematic velocity profile—acceleration, constant velocity, and deceleration over a 20-second transit—the time-dependent forces were projected onto the structural modes to evaluate the transient vertical displacement and harmonic oscillations of the crane's extremity.</p>
+      </section>
+
+      <section class="project-block">
+        <h2>Key contributions</h2>
+        <ul>
+          <li>Built a custom 2D FEM model for a harbour crane with global mass, stiffness, and proportional damping matrices.</li>
+          <li>Solved the eigenvalue problem to obtain natural frequencies and dominant vibration modes.</li>
+          <li>Performed static structural analysis using rotation matrices to compute maximum nodal deflection under self-weight.</li>
+          <li>Computed FRFs for multiple input-output pairs and compared full FEM and modal superposition results.</li>
+          <li>Simulated time-domain crane dynamics under a moving load with an acceleration–velocity–deceleration profile.</li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const mainImage = document.querySelector('#mainImage img');
+    const mainCaption = document.querySelector('#mainCaption');
+    document.querySelectorAll('.thumb').forEach((thumb) => {
+      thumb.addEventListener('click', () => {
+        document.querySelectorAll('.thumb').forEach((item) => item.classList.remove('active'));
+        thumb.classList.add('active');
+        mainImage.src = thumb.dataset.src;
+        mainCaption.textContent = thumb.dataset.caption || '';
+      });
+    });
+  </script>
+</body>
+</html>
