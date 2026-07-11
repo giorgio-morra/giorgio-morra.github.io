@@ -57823,29 +57823,25 @@
         var btn = document.getElementById('theme-switcher');
         if (btn) btn.style.display = 'none';
       }
-      // Remove the basemap's own "Alcatraz Island" / "Alcatraz" labels
-      // (the page draws its own big ALCATRAZ title on arrival).
-      function scrubAlcatrazLabels(map) {
+      // Hide the basemap's water-name labels ("San Francisco Bay") so the
+      // open water reads as a clean background.
+      function hideWaterLabels(map) {
         var style;
         try { style = map.getStyle(); } catch (e) { return; }
         if (!style || !style.layers) return;
         style.layers.forEach(function (l) {
           if (l.type !== 'symbol') return;
-          try {
-            var f = map.getFilter(l.id);
-            if (f && JSON.stringify(f).indexOf('Alcatraz') !== -1) return;
-            var extra = ['!in', 'name', 'Alcatraz Island', 'Alcatraz', 'Alcatraz City Cruises'];
-            map.setFilter(l.id, f ? ['all', f, extra] : extra);
-          } catch (e) { /* keep going on the other layers */ }
+          if (!/water/i.test(l.id) && l['source-layer'] !== 'water_name') return;
+          try { map.setLayoutProperty(l.id, 'visibility', 'none'); } catch (e) {}
         });
       }
       function watchBasemap() {
         Promise.resolve(deckInstance).then(function (d) {
           var map = d._map && (d._map.map || d._map);
           if (!map || typeof map.getStyle !== 'function') { setTimeout(watchBasemap, 200); return; }
-          scrubAlcatrazLabels(map);
-          map.on('styledata', function () { scrubAlcatrazLabels(map); });
-          map.on('idle', function () { scrubAlcatrazLabels(map); });
+          hideWaterLabels(map);
+          map.on('styledata', function () { hideWaterLabels(map); });
+          map.on('idle', function () { hideWaterLabels(map); });
         });
       }
       window.addEventListener('load', watchBasemap);

@@ -63,6 +63,9 @@
     inset: 0;
     width: 100vw;
     height: 100vh;
+    height: 100lvh; /* cover the gap left by mobile URL bars */
+    min-width: 100%;
+    min-height: 100%;
     border: 0;
     z-index: 0;
     pointer-events: none;
@@ -127,6 +130,7 @@
 
   /* Hero: name, photo, role, CV/Resume over the map */
   #hero {
+    position: relative;
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -194,39 +198,7 @@
     border: 1px solid var(--border);
     border-radius: 20px;
   }
-  /* long stretch of pure map between Profile and Projects: room to fly onto Alcatraz */
-  #profile.panel-section { margin-bottom: 160vh; }
   #projects.panel-section { margin-bottom: 30vh; }
-
-  /* "ALCATRAZ" label that fades in over the island on arrival */
-  #alcatraz-label {
-    position: fixed;
-    top: 44%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 0;
-    text-align: center;
-    color: var(--text);
-    text-shadow: 0 0 14px var(--bg), 0 0 4px var(--bg);
-    opacity: 0;
-    pointer-events: none;
-  }
-  #alcatraz-label .big {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: clamp(1.6rem, 4vw, 2.6rem);
-    font-weight: 500;
-    letter-spacing: 0.45em;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-  #alcatraz-label .sub {
-    margin-top: 14px;
-    font-size: clamp(0.9rem, 1.4vw, 1.05rem);
-    color: var(--text-dim);
-    max-width: 620px;
-    margin-left: auto;
-    margin-right: auto;
-  }
 
   .section-head {
     display: flex;
@@ -274,7 +246,7 @@
   .project {
     position: relative;
     border: 1px solid var(--border);
-    padding: 24px 24px 40px;
+    padding: 24px;
     border-radius: 14px;
     background: var(--panel);
     display: flex;
@@ -318,14 +290,6 @@
   .project .desc {
     font-size: 0.92rem;
     color: var(--text-dim);
-  }
-  .project .inmate {
-    position: absolute;
-    right: 14px;
-    bottom: 12px;
-    font-size: 0.68rem;
-    color: var(--text-dim);
-    opacity: 0.75;
   }
 
   /* From Skills on, the map background is no longer needed: solid zone */
@@ -417,7 +381,8 @@
     .topbar { justify-content: flex-start; }
     #hero { justify-content: center; padding-left: 24px; }
     .hero-card { padding: 32px 24px; }
-    .panel-section { margin: 14vh 16px; padding: 32px 22px; }
+    /* leave clear stretches of map between panels so the flight is visible */
+    .panel-section { margin: 28vh 16px; padding: 32px 22px; }
     .projects-grid { grid-template-columns: 1fr; }
     .facts, .skill-grid { grid-template-columns: 1fr; }
     .solid-zone section { padding: 48px 24px; }
@@ -430,8 +395,6 @@
 <a href="#main-content" class="skip-link">Skip to content</a>
 
 <iframe id="map-bg" src="Files%20and%20projects/interactive_map.html?embed=1" title="San Francisco drone fleet path planning map" aria-hidden="true" tabindex="-1"></iframe>
-<div id="alcatraz-label" aria-hidden="true">
-  <div class="big">Alcatraz</div>
   <div class="sub">This is where the fleet drops its cargo — a selection of my projects in robotics and autonomous systems.</div>
 </div>
 
@@ -479,63 +442,54 @@
         <div class="project-cover" style="background-image:url('Files%20and%20projects/Terrain%20Relative%20Navigation%20for%20Venus%20Aerobot%20Balloon/Preview/Logo-NASA-icon-PNG.avif');"></div>
         <h3><a href="Files%20and%20projects/Terrain%20Relative%20Navigation%20for%20Venus%20Aerobot%20Balloon/">Terrain Relative Navigation for Venus Aerobot Balloon</a></h3>
         <p class="desc">Brief overview and purpose of the project.</p>
-        <span class="inmate mono" title="At Alcatraz, Capone played banjo in the inmate band, the Rock Islanders, giving Sunday concerts.">Al Capone · Cell B-181</span>
       </div>
 
       <div class="project">
         <div class="project-cover" style="background-image:url('Files%20and%20projects/UAV%20Autonomous%20Navigation%20in%20Urban%20Environment/anteprima/1.png');"></div>
         <h3><a href="progetto-uav.html">UAV Autonomous Navigation in Urban Environment</a></h3>
         <p class="desc">Navigation pipeline for autonomous vehicles integrating A* global path planning and non-linear MPC for dynamic obstacle avoidance.</p>
-        <span class="inmate mono" title="Mastermind of the 1962 escape: he fooled the guards with a dummy head made of soap, plaster and real hair.">Frank Morris · Cell B-138</span>
       </div>
 
       <div class="project">
         <div class="project-cover" style="background-image:url('Files%20and%20projects/License%20Plate%20Segmentation%20and%20Character%20Extraction/anteprima/1%20foto%20originale.png');"></div>
         <h3><a href="license-plate-segmentation.html">License Plate Segmentation and Character Extraction</a></h3>
         <p class="desc">OpenCV pipeline for plate detection, perspective correction, character segmentation and template-based symbol recognition.</p>
-        <span class="inmate mono" title="Longest-serving Alcatraz inmate (about 26 years). Years later, in another prison, he taught guitar to Charles Manson.">Alvin Karpis · AZ-325</span>
       </div>
 
       <div class="project">
         <div class="project-cover" style="background-image:url('Files%20and%20projects/Experimental%20Modal%20Analysis%20and%20Parameter%20Identification%20of%20a%20Light%20Rail%20Wheel/anteprima/Screenshot%202026-07-11%20at%2012.58.15%E2%80%AFPM.png');"></div>
         <h3><a href="experimental-modal-analysis.html">Experimental Modal Analysis and Parameter Identification of a Light Rail Wheel</a></h3>
         <p class="desc">Structural vibration analysis of a light rail wheel using modal parameter extraction and experimental curve fitting.</p>
-        <span class="inmate mono" title="Despite the nickname, Stroud never kept birds at Alcatraz — his canaries stayed at Leavenworth, where he wrote two books on bird diseases.">Robert "Birdman" Stroud · Cell D-42</span>
       </div>
 
       <div class="project">
         <div class="project-cover" style="background-image:url('Files%20and%20projects/Finite%20Element%20Analysis%20and%20Dynamic%20Simulation%20of%20a%20Harbour%20Crane/anteprima/1.png');"></div>
         <h3><a href="harbour-crane.html">Finite Element Analysis and Dynamic Simulation of a Harbour Crane</a></h3>
         <p class="desc">Structural and dynamic FEM analysis of a harbour crane, including modal solution, FRF comparison and moving-load simulation.</p>
-        <span class="inmate mono" title="At Alcatraz Kelly was such a model prisoner that other inmates mockingly called him 'Pop Gun Kelly'.">George "Machine Gun" Kelly · AZ-117</span>
       </div>
 
       <div class="project">
         <div class="project-cover"></div>
         <h3><a href="Files%20and%20projects/Advanced%20dynamics%202/">Advanced dynamics 2</a></h3>
         <p class="desc">Brief overview and purpose of the project.</p>
-        <span class="inmate mono" title="Member of the Ma Barker gang, he was shot in 1939 while trying to escape the island on a makeshift raft.">Arthur "Doc" Barker · AZ-268</span>
       </div>
 
       <div class="project">
         <div class="project-cover"></div>
         <h3><a href="Files%20and%20projects/Data%20analysis/">Data analysis</a></h3>
         <p class="desc">Brief overview and purpose of the project.</p>
-        <span class="inmate mono" title="America's last great train robber: he escaped twice from trains taking him to prison and wrote the memoir 'Hellcatraz'.">Roy Gardner · AZ-110</span>
       </div>
 
       <div class="project">
         <div class="project-cover"></div>
         <h3><a href="Files%20and%20projects/Optimal%20Control%20for%20Shuttle%20take%20off/">Optimal Control for Shuttle take off</a></h3>
         <p class="desc">Brief overview and purpose of the project.</p>
-        <span class="inmate mono" title="His years in solitary and his murder trial inspired the film 'Murder in the First' (1995).">Henri Young · AZ-244</span>
       </div>
 
       <div class="project">
         <div class="project-cover"></div>
         <h3><a href="Files%20and%20projects/Path%20planning%20and%20obstacle%20avoidance/">Path planning and obstacle avoidance</a></h3>
         <p class="desc">Brief overview and purpose of the project.</p>
-        <span class="inmate mono" title="The brothers escaped with Frank Morris on a raft made of stitched raincoats — they were never found.">John &amp; Clarence Anglin · Cells B-150/B-152</span>
       </div>
     </div>
   </section>
@@ -593,7 +547,7 @@
     <section id="contact">
       <div class="section-head"><span class="num">04</span><h2>Contact</h2></div>
       <div class="contact-table">
-        <div><span class="k">Email</span><a href="mailto:youremail@example.com">youremail@example.com</a></div>
+        <div><span class="k">Email</span><a href="mailto:giorgiomorra1@outlook.com">giorgiomorra1@outlook.com</a></div>
         <div><span class="k">GitHub</span><a href="https://github.com/giorgio-morra" target="_blank">github.com/giorgio-morra</a></div>
         <div><span class="k">LinkedIn</span><a href="#" target="_blank">linkedin.com/in/giorgio-morra</a></div>
       </div>
@@ -651,16 +605,21 @@
     });
 
     /* Scroll-driven camera: the map starts on the downtown skyscrapers with
-       the drone trajectories, then flies to Alcatraz, arriving with the map
-       full-screen just before the Projects section comes into view. */
-    var VIEW_START = { longitude: -122.3991, latitude: 37.79, zoom: 15.7, pitch: 55, bearing: 0 };
-    var VIEW_ALCATRAZ = { longitude: -122.4229, latitude: 37.8267, zoom: 15.6, pitch: 35, bearing: -25 };
+       the drone trajectories, then flies out over the open bay, so the
+       background settles on plain water just before the Projects section. */
+    // On narrow screens use a wider, centered start view so the whole
+    // cluster of towers fits behind the card.
+    var isNarrow = window.matchMedia('(max-width: 700px)').matches;
+    var VIEW_START = isNarrow
+      ? { longitude: -122.3945, latitude: 37.7845, zoom: 15.2, pitch: 55, bearing: 0 }
+      : { longitude: -122.40, latitude: 37.79, zoom: 15.5, pitch: 55, bearing: 0 };
+    var VIEW_SEA = { longitude: -122.352, latitude: 37.772, zoom: 15, pitch: 0, bearing: 0 };
 
     function lerp(a, b, t) { return a + (b - a) * t; }
     function smoothstep(t) { return t * t * (3 - 2 * t); }
     function clamp01(t) { return Math.max(0, Math.min(1, t)); }
 
-    var alcatrazLabel = document.getElementById('alcatraz-label');
+    var vhStable = window.innerHeight;
     var lastP = -1;
     var ticking = false;
 
@@ -668,26 +627,19 @@
       ticking = false;
       if (!mapReady) return;
       var projects = document.getElementById('projects');
-      var vh = window.innerHeight;
-      var end = Math.max(1, projects.offsetTop - vh * 1.6);
+      var end = Math.max(1, projects.offsetTop - vhStable * 0.7);
       var p = smoothstep(clamp01(window.scrollY / end));
-
-      // label fades in on arrival, fades out as the Projects panel takes over
-      var fadeIn = clamp01((p - 0.78) / 0.22);
-      var projTop = projects.getBoundingClientRect().top;
-      var fadeOut = clamp01((projTop - vh * 0.3) / (vh * 0.3));
-      alcatrazLabel.style.opacity = (fadeIn * fadeOut).toFixed(3);
 
       if (Math.abs(p - lastP) < 0.0004) return;
       lastP = p;
       postToMap({
         type: 'set-view',
         viewState: {
-          longitude: lerp(VIEW_START.longitude, VIEW_ALCATRAZ.longitude, p),
-          latitude: lerp(VIEW_START.latitude, VIEW_ALCATRAZ.latitude, p),
-          zoom: lerp(VIEW_START.zoom, VIEW_ALCATRAZ.zoom, p),
-          pitch: lerp(VIEW_START.pitch, VIEW_ALCATRAZ.pitch, p),
-          bearing: lerp(VIEW_START.bearing, VIEW_ALCATRAZ.bearing, p)
+          longitude: lerp(VIEW_START.longitude, VIEW_SEA.longitude, p),
+          latitude: lerp(VIEW_START.latitude, VIEW_SEA.latitude, p),
+          zoom: lerp(VIEW_START.zoom, VIEW_SEA.zoom, p),
+          pitch: lerp(VIEW_START.pitch, VIEW_SEA.pitch, p),
+          bearing: lerp(VIEW_START.bearing, VIEW_SEA.bearing, p)
         }
       });
     }
@@ -700,7 +652,11 @@
     }
 
     window.addEventListener('scroll', requestCameraUpdate, { passive: true });
-    window.addEventListener('resize', requestCameraUpdate);
+    window.addEventListener('resize', function () {
+      // only real size changes (rotation, window resize) — not the mobile URL bar
+      if (Math.abs(window.innerHeight - vhStable) > 150) vhStable = window.innerHeight;
+      requestCameraUpdate();
+    });
 
     window.addEventListener('message', function (ev) {
       if (ev.data && ev.data.type === 'map-ready') {
