@@ -1,14 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>
+  // Follow the theme chosen on the main page (falls back to system preference)
+  (function () {
+    var stored = localStorage.getItem('theme');
+    var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (dark) document.documentElement.setAttribute('data-theme', 'dark');
+  })();
+</script>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Experimental Modal Analysis — Light Rail Wheel</title>
   <style>
     :root {
+      --bg: #fafafa;
+      --panel: #f1f2f4;
+      --text: #1a1b1e;
+      --text-dim: #6a6e76;
+      --accent: #146c7a;
+      --border: #e2e3e6;
+    }
+    html[data-theme="dark"] {
+      --bg: #121316;
+      --panel: #1a1c20;
+      --text: #eef0f2;
+      --text-dim: #9195a0;
+      --accent: #4fc2cf;
+      --border: #2a2c31;
+    }
+    :root {
       font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      color: #111;
-      background: #fff;
+      color: var(--text);
+      background: var(--bg);
     }
     * {
       box-sizing: border-box;
@@ -16,8 +41,8 @@
     body {
       margin: 0;
       min-height: 100vh;
-      background: #fff;
-      color: #111;
+      background: var(--bg);
+      color: var(--text);
     }
     a {
       color: inherit;
@@ -36,11 +61,11 @@
       font-size: 0.92rem;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: #444;
+      color: var(--text-dim);
     }
     .topbar a {
       font-weight: 700;
-      color: #111;
+      color: var(--text);
     }
     .gallery-top {
       display: grid;
@@ -54,15 +79,15 @@
       margin: 0 auto;
       border-radius: 24px;
       overflow: hidden;
-      border: 1px solid #eef2f5;
-      background: #f8f9fb;
+      border: 1px solid var(--border);
+      background: var(--panel);
     }
     .main-image img {
       width: 100%;
       height: 100%;
       display: block;
       object-fit: contain;
-      background: #f8f9fb;
+      background: var(--panel);
     }
     .thumb-strip {
       display: grid;
@@ -75,13 +100,13 @@
       cursor: pointer;
       border: 2px solid transparent;
       transition: border-color 0.2s ease, transform 0.2s ease;
-      background: #fff;
+      background: var(--bg);
       padding: 0;
       min-height: 88px;
     }
     .thumb.active,
     .thumb:hover {
-      border-color: #111;
+      border-color: var(--text);
       transform: translateY(-2px);
     }
     .thumb img {
@@ -93,7 +118,7 @@
     .main-caption {
       margin-top: 12px;
       font-size: 0.95rem;
-      color: #555;
+      color: var(--text-dim);
       text-align: center;
       max-width: 760px;
       margin-left: auto;
@@ -130,10 +155,10 @@
       justify-content: center;
       min-height: 38px;
       padding: 0 14px;
-      border: 1px solid #e5e7eb;
+      border: 1px solid var(--border);
       border-radius: 14px;
-      background: #fafbff;
-      color: #111;
+      background: var(--panel);
+      color: var(--text);
       font-weight: 700;
       letter-spacing: 0.02em;
       font-size: 0.85rem;
@@ -142,9 +167,9 @@
       display: grid;
       gap: 20px;
       padding: 28px 30px;
-      border: 1px solid #eef2f5;
+      border: 1px solid var(--border);
       border-radius: 28px;
-      background: #f8f9fb;
+      background: var(--panel);
       margin-bottom: 28px;
     }
     .project-block h2 {
@@ -152,12 +177,12 @@
       font-size: 0.95rem;
       text-transform: uppercase;
       letter-spacing: 0.14em;
-      color: #111;
+      color: var(--text);
     }
     .project-block p,
     .project-block ul {
       margin: 0;
-      color: #444;
+      color: var(--text-dim);
       font-size: 1rem;
       line-height: 1.8;
     }
@@ -180,13 +205,31 @@
         font-size: 2.6rem;
       }
     }
-  </style>
+      .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .theme-btn {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.8rem;
+      letter-spacing: normal;
+      text-transform: none;
+      padding: 7px 12px;
+      cursor: pointer;
+    }
+    .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+</style>
 </head>
 <body>
   <div class="page-wrap">
     <div class="topbar">
       <a href="index.html">← Back to portfolio</a>
-      <span>Project details</span>
+      <span class="topbar-right"><span>Project details</span><button class="theme-btn" id="themeToggle">Theme: <span id="themeLabel">Light</span></button></span>
     </div>
 
     <section class="project-header">
@@ -204,25 +247,25 @@
     <section class="gallery-top">
       <div>
         <div class="main-image" id="mainImage">
-          <img src="Files%20and%20projects/Experimental%20Modal%20Analysis%20and%20Parameter%20Identification%20of%20a%20Light%20Rail%20Wheel/Setup%20sperimentale.png" alt="Experimental setup for rail wheel modal analysis">
+          <img src="Files%20and%20projects/Experimental%20Modal%20Analysis%20and%20Parameter%20Identification%20of%20a%20Light%20Rail%20Wheel/1.%20Setup%20sperimentale.png" alt="Experimental setup.">
         </div>
-        <div class="main-caption" id="mainCaption">Experimental setup</div>
+        <div class="main-caption" id="mainCaption">Experimental setup.</div>
       </div>
       <div class="thumb-strip">
-        <button class="thumb active" data-src="Files%20and%20projects/Experimental%20Modal%20Analysis%20and%20Parameter%20Identification%20of%20a%20Light%20Rail%20Wheel/Setup%20sperimentale.png" data-caption="Experimental setup" aria-label="Setup image">
-          <img src="Files%20and%20projects/Experimental%20Modal%20Analysis%20and%20Parameter%20Identification%20of%20a%20Light%20Rail%20Wheel/Setup%20sperimentale.png" alt="Setup thumbnail">
+        <button class="thumb active" data-src="Files%20and%20projects/Experimental%20Modal%20Analysis%20and%20Parameter%20Identification%20of%20a%20Light%20Rail%20Wheel/1.%20Setup%20sperimentale.png" data-caption="Experimental setup." aria-label="Experimental setup.">
+          <img src="Files%20and%20projects/Experimental%20Modal%20Analysis%20and%20Parameter%20Identification%20of%20a%20Light%20Rail%20Wheel/1.%20Setup%20sperimentale.png" alt="Experimental setup.">
         </button>
-        <button class="thumb" data-src="Files%20and%20projects/Experimental%20Modal%20Analysis%20and%20Parameter%20Identification%20of%20a%20Light%20Rail%20Wheel/ModeShape_Animation.gif" data-caption="Mode shape animation" aria-label="Mode shape animation">
-          <img src="Files%20and%20projects/Experimental%20Modal%20Analysis%20and%20Parameter%20Identification%20of%20a%20Light%20Rail%20Wheel/ModeShape_Animation.gif" alt="Mode shape thumbnail">
+        <button class="thumb" data-src="Files%20and%20projects/Experimental%20Modal%20Analysis%20and%20Parameter%20Identification%20of%20a%20Light%20Rail%20Wheel/2.%20schema%20sensori.png" data-caption="Sensor layout schematic." aria-label="Sensor layout schematic.">
+          <img src="Files%20and%20projects/Experimental%20Modal%20Analysis%20and%20Parameter%20Identification%20of%20a%20Light%20Rail%20Wheel/2.%20schema%20sensori.png" alt="Sensor layout schematic.">
         </button>
-        <button class="thumb" data-src="Files%20and%20projects/Experimental%20Modal%20Analysis%20and%20Parameter%20Identification%20of%20a%20Light%20Rail%20Wheel/modeshape.png" data-caption="Extracted mode shape" aria-label="Mode shape image">
-          <img src="Files%20and%20projects/Experimental%20Modal%20Analysis%20and%20Parameter%20Identification%20of%20a%20Light%20Rail%20Wheel/modeshape.png" alt="Mode shape thumbnail">
+        <button class="thumb" data-src="Files%20and%20projects/Experimental%20Modal%20Analysis%20and%20Parameter%20Identification%20of%20a%20Light%20Rail%20Wheel/3.%20acquired%20data.png" data-caption="Acquired FRF data." aria-label="Acquired FRF data.">
+          <img src="Files%20and%20projects/Experimental%20Modal%20Analysis%20and%20Parameter%20Identification%20of%20a%20Light%20Rail%20Wheel/3.%20acquired%20data.png" alt="Acquired FRF data.">
         </button>
-        <button class="thumb" data-src="Files%20and%20projects/Experimental%20Modal%20Analysis%20and%20Parameter%20Identification%20of%20a%20Light%20Rail%20Wheel/acquired%20data.png" data-caption="Acquired FRF data" aria-label="Acquired data image">
-          <img src="Files%20and%20projects/Experimental%20Modal%20Analysis%20and%20Parameter%20Identification%20of%20a%20Light%20Rail%20Wheel/acquired%20data.png" alt="Acquired data thumbnail">
+        <button class="thumb" data-src="Files%20and%20projects/Experimental%20Modal%20Analysis%20and%20Parameter%20Identification%20of%20a%20Light%20Rail%20Wheel/4.%20ModeShape_Animation.gif" data-caption="Mode shape animation." aria-label="Mode shape animation.">
+          <img src="Files%20and%20projects/Experimental%20Modal%20Analysis%20and%20Parameter%20Identification%20of%20a%20Light%20Rail%20Wheel/4.%20ModeShape_Animation.gif" alt="Mode shape animation.">
         </button>
-        <button class="thumb" data-src="Files%20and%20projects/Experimental%20Modal%20Analysis%20and%20Parameter%20Identification%20of%20a%20Light%20Rail%20Wheel/schema%20sensori.png" data-caption="Sensor layout schematic" aria-label="Sensor layout schematic">
-          <img src="Files%20and%20projects/Experimental%20Modal%20Analysis%20and%20Parameter%20Identification%20of%20a%20Light%20Rail%20Wheel/schema%20sensori.png" alt="Sensor layout thumbnail">
+        <button class="thumb" data-src="Files%20and%20projects/Experimental%20Modal%20Analysis%20and%20Parameter%20Identification%20of%20a%20Light%20Rail%20Wheel/5.%20modeshape.png" data-caption="Extracted mode shape." aria-label="Extracted mode shape.">
+          <img src="Files%20and%20projects/Experimental%20Modal%20Analysis%20and%20Parameter%20Identification%20of%20a%20Light%20Rail%20Wheel/5.%20modeshape.png" alt="Extracted mode shape.">
         </button>
       </div>
     </section>
@@ -231,21 +274,24 @@
     <main>
       <section class="project-block">
         <h2>Project summary</h2>
-        <p>This project focuses on the structural vibration analysis and modal parameter extraction of mechanical systems. The work began by developing a foundational mathematical model to compute the natural frequencies, mode shapes, and Frequency Response Functions (FRFs) of a continuous cantilever beam.</p>
-        <p>Building upon this theoretical framework, multi-mode curve fitting algorithms were applied to a real-world experimental case study: a light rail wheel. The engineering objective was to investigate the axial vibrations of the wheel surface, which act similarly to a loudspeaker and cause significant acoustic radiation and noise pollution.</p>
+        <p>Multi-mode curve fitting algorithms were applied to a real-world experimental case study: a light rail wheel. The engineering objective was to investigate the axial vibrations of the wheel surface, which act similarly to a loudspeaker and cause significant acoustic radiation and noise pollution.</p>
         <p>The wheel was tested in a free-free configuration suspended by elastic supports. Experimental data was processed from a dynamometric impact hammer and 12 piezoelectric accelerometers spaced at 15-degree intervals. By utilizing non-linear least squares optimization routines, the resonance peaks were successfully isolated from the quasi-static and seismographic residuals, allowing accurate numerical reconstruction and visualization of physical mode shapes directly from the raw accelerometer data.</p>
       </section>
 
       <section class="project-block">
         <h2>Key contributions</h2>
         <ul>
-          <li>Developed a modal model for natural frequency, mode shape, and FRF prediction of a continuous beam.</li>
           <li>Applied multi-mode curve fitting to experimental light rail wheel data.</li>
           <li>Designed a free-free test configuration with elastic suspension and 12 accelerometer channels.</li>
           <li>Used nonlinear least squares to isolate resonances and reconstruct physical mode shapes from raw data.</li>
         </ul>
       </section>
-    </main>
+  
+    <section class="project-block">
+        <h2>Alcatraz Fun Fact — Robert "Birdman" Stroud — Cell D-42</h2>
+        <p>This project is guarded by Robert Stroud, the 'Birdman of Alcatraz'. Fun fact: despite the nickname, Stroud never kept a single bird on the island — his canaries stayed behind at Leavenworth, where he had become a self-taught ornithologist and wrote two respected books on bird diseases. At Alcatraz he spent his years in segregation, cell 42 of D-Block.</p>
+    </section>
+  </main>
   </div>
 
   <script>
@@ -260,5 +306,22 @@
       });
     });
   </script>
+<script>
+  (function () {
+    var root = document.documentElement;
+    var label = document.getElementById('themeLabel');
+    function sync() {
+      label.textContent = root.getAttribute('data-theme') === 'dark' ? 'Dark' : 'Light';
+    }
+    sync();
+    document.getElementById('themeToggle').addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      if (next === 'dark') root.setAttribute('data-theme', 'dark');
+      else root.removeAttribute('data-theme');
+      localStorage.setItem('theme', next);
+      sync();
+    });
+  })();
+</script>
 </body>
 </html>
