@@ -108,16 +108,26 @@
     left: 20px;
     top: 50%;
     transform: translateY(-50%);
-    background: none;
-    border: 1px solid var(--border);
-    border-radius: 8px;
+    /* Stile per il nuovo bottone a cerchio */
+    background: transparent;
+    border: none;
+    border-radius: 50%;
     color: var(--text);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.8rem;
-    padding: 7px 12px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
+    padding: 0;
+    transition: background-color 0.2s ease;
   }
-  .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .theme-btn:hover { background-color: var(--panel); }
+  /* Stile per le icone SVG */
+  .theme-btn svg { width: 18px; height: 18px; }
+  .theme-btn .moon { display: none; }
+  html[data-theme="dark"] .theme-btn .sun { display: none; }
+  html[data-theme="dark"] .theme-btn .moon { display: block; }
 
   main {
     position: relative;
@@ -146,10 +156,14 @@
     border-radius: 20px;
     padding: 44px 56px;
     max-width: 560px;
+    padding: 32px 40px;
+    max-width: 500px;
   }
   .hero-card .hero-photo {
     width: 160px;
     height: 160px;
+    width: 140px;
+    height: 140px;
     border-radius: 50%;
     object-fit: cover;
     border: 3px solid var(--accent);
@@ -157,6 +171,7 @@
   }
   .hero-card h1 {
     font-size: 2.1rem;
+    font-size: 1.9rem;
     font-weight: 700;
     line-height: 1.2;
   }
@@ -379,8 +394,13 @@
     .topbar nav a .num { display: none; }
     .theme-btn { position: static; transform: none; margin-right: 14px; }
     .topbar { justify-content: flex-start; }
-    #hero { justify-content: center; padding-left: 24px; }
-    .hero-card { padding: 32px 24px; }
+    #hero { justify-content: center; align-items: flex-start; padding-left: 24px; padding-top: 70px; }
+    .hero-card {
+      padding: 28px 24px;
+      max-width: 340px;
+    }
+    .hero-card .hero-photo { width: 120px; height: 120px; }
+    .hero-card h1 { font-size: 1.7rem; }
     /* leave clear stretches of map between panels so the flight is visible */
     .panel-section { margin: 28vh 16px; padding: 32px 22px; }
     .projects-grid { grid-template-columns: 1fr; }
@@ -399,7 +419,10 @@
 </div>
 
 <header class="topbar">
-  <button class="theme-btn" id="themeToggle">Theme: <span id="themeLabel">Light</span></button>
+  <button class="theme-btn" id="themeToggle" aria-label="Cambia tema">
+    <svg class="sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.44 7.44a.75.75 0 011.06 0l1.5 1.5a.75.75 0 01-1.06 1.06l-1.5-1.5a.75.75 0 010-1.06zM18.56 7.44a.75.75 0 010 1.06l-1.5 1.5a.75.75 0 11-1.06-1.06l1.5-1.5a.75.75 0 011.06 0zM2.25 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3a.75.75 0 01-.75-.75zM18.75 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5h-2.25a.75.75 0 01-.75-.75zM7.44 16.56a.75.75 0 011.06 0l1.5 1.5a.75.75 0 11-1.06 1.06l-1.5-1.5a.75.75 0 010-1.06zM18.56 16.56a.75.75 0 010 1.06l-1.5 1.5a.75.75 0 11-1.06-1.06l1.5-1.5a.75.75 0 011.06 0zM12 17.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zM12 7.5a4.5 4.5 0 100 9 4.5 4.5 0 000-9z"/></svg>
+    <svg class="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M9.5 2c-1.82 0-3.53.5-5 1.35 2.99 1.73 5 4.95 5 8.65s-2.01 6.92-5 8.65c1.47.85 3.18 1.35 5 1.35 5.52 0 10-4.48 10-10S15.02 2 9.5 2z"/></svg>
+  </button>
   <nav aria-label="Page sections">
     <a href="#profile"><span class="num mono">01</span>Profile</a>
     <a href="#projects"><span class="num mono">02</span>Projects</a>
@@ -561,8 +584,6 @@
 <script>
   (function () {
     var root = document.documentElement;
-    var toggle = document.getElementById('themeToggle');
-    var label = document.getElementById('themeLabel');
     var mapFrame = document.getElementById('map-bg');
     var mapReady = false;
 
@@ -584,10 +605,8 @@
     function apply(theme) {
       if (theme === 'dark') {
         root.setAttribute('data-theme', 'dark');
-        label.textContent = 'Dark';
       } else {
         root.removeAttribute('data-theme');
-        label.textContent = 'Light';
       }
       if (mapReady) {
         postToMap({ type: 'set-style', style: MAP_STYLES[theme] });
@@ -598,7 +617,7 @@
     var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     apply(stored || (prefersDark ? 'dark' : 'light'));
 
-    toggle.addEventListener('click', function () {
+    document.getElementById('themeToggle').addEventListener('click', function () {
       var next = currentTheme() === 'dark' ? 'light' : 'dark';
       apply(next);
       localStorage.setItem('theme', next);
@@ -611,7 +630,7 @@
     // cluster of towers fits behind the card.
     var isNarrow = window.matchMedia('(max-width: 700px)').matches;
     var VIEW_START = isNarrow
-      ? { longitude: -122.3945, latitude: 37.7845, zoom: 15.2, pitch: 55, bearing: 0 }
+      ? { longitude: -122.397, latitude: 37.79999, zoom: 14.5, pitch: 68, bearing: 0 }
       : { longitude: -122.40, latitude: 37.79, zoom: 15.5, pitch: 55, bearing: 0 };
     var VIEW_SEA = { longitude: -122.352, latitude: 37.772, zoom: 15, pitch: 0, bearing: 0 };
 
