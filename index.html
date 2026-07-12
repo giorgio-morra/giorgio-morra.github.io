@@ -105,16 +105,20 @@
     left: 20px;
     top: 50%;
     transform: translateY(-50%);
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     background: none;
     border: 1px solid var(--border);
-    border-radius: 8px;
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.8rem;
-    padding: 7px 12px;
+    border-radius: 50%;
+    font-size: 1.05rem;
+    line-height: 1;
+    padding: 0;
     cursor: pointer;
   }
-  .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .theme-btn:hover { border-color: var(--accent); }
 
   main {
     position: relative;
@@ -435,10 +439,31 @@
   @media (max-width: 900px) {
     .topbar nav { gap: 18px; }
     .topbar nav a .num { display: none; }
-    .theme-btn { position: static; transform: none; margin-right: 14px; }
+    .theme-btn { position: static; transform: none; margin-right: 14px; flex-shrink: 0; }
     .topbar { justify-content: flex-start; }
-    #hero { justify-content: center; padding-left: 24px; }
-    .hero-card { padding: 32px 24px; }
+
+    /* Intro: compact hero card at the top, SAN FRANCISCO in plain view
+       over the buildings below it */
+    #hero {
+      align-items: flex-start;
+      justify-content: center;
+      padding: 84px 20px 0;
+    }
+    .hero-card { padding: 24px 22px; }
+    .hero-card .hero-photo { width: 104px; height: 104px; margin-bottom: 14px; }
+    .hero-card h1 { font-size: 1.55rem; }
+    .hero-card .role { font-size: 0.9rem; }
+    .download-buttons { margin-top: 18px; gap: 10px; }
+    .download-btn { padding: 9px 22px; font-size: 0.9rem; }
+    #sf-label {
+      top: auto;
+      bottom: 14%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+    }
+    #sf-label .big { font-size: 1.35rem; letter-spacing: 0.3em; }
+    #sf-label .sub { font-size: 0.72rem; letter-spacing: 0.22em; }
     .panel-section { margin: 14vh 16px; padding: 32px 22px; }
     .projects-grid { grid-template-columns: 1fr; }
     .facts, .skill-grid { grid-template-columns: 1fr; }
@@ -462,7 +487,7 @@
 </div>
 
 <header class="topbar">
-  <button class="theme-btn" id="themeToggle">Theme: <span id="themeLabel">Light</span></button>
+  <button class="theme-btn" id="themeToggle" aria-label="Toggle light/dark theme"><span id="themeLabel">☀️</span></button>
   <nav aria-label="Page sections">
     <a href="#profile"><span class="num mono">01</span>Profile</a>
     <a href="#projects"><span class="num mono">02</span>Projects</a>
@@ -647,10 +672,10 @@
     function apply(theme) {
       if (theme === 'dark') {
         root.setAttribute('data-theme', 'dark');
-        label.textContent = 'Dark';
+        label.textContent = '🌙';
       } else {
         root.removeAttribute('data-theme');
-        label.textContent = 'Light';
+        label.textContent = '☀️';
       }
       if (mapReady) {
         postToMap({ type: 'set-style', style: MAP_STYLES[theme] });
@@ -670,7 +695,10 @@
     /* Scroll-driven camera: the map starts on the downtown skyscrapers with
        the drone trajectories, zooms far out and glides across to Sicily,
        arriving just before the Projects section comes into view. */
-    var VIEW_START = { longitude: -122.40, latitude: 37.792, zoom: 15.5, pitch: 60, bearing: 0 };
+    var isPhone = window.matchMedia('(max-width: 900px)').matches;
+    var VIEW_START = isPhone
+      ? { longitude: -122.397, latitude: 37.795, zoom: 14.3, pitch: 55, bearing: 0 }   // telefono
+      : { longitude: -122.40, latitude: 37.792, zoom: 15.5, pitch: 60, bearing: 0 };  // desktop
     var VIEW_SICILY = { longitude: 14.15, latitude: 37.55, zoom: 6.2, pitch: 0, bearing: 0 };
 
     function lerp(a, b, t) { return a + (b - a) * t; }
