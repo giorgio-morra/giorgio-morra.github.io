@@ -194,7 +194,7 @@
     border: 1px solid var(--border);
     border-radius: 20px;
   }
-  /* long stretch of pure map between Profile and Projects: room to fly onto Alcatraz */
+  /* long stretch of pure map between Profile and Projects: room to fly to Sicily */
   #profile.panel-section { margin-bottom: 160vh; }
   #projects.panel-section { margin-bottom: 30vh; }
 
@@ -229,8 +229,8 @@
     white-space: nowrap;
   }
 
-  /* "ALCATRAZ" label that fades in over the island on arrival */
-  #alcatraz-label {
+  /* "SICILY" label that fades in over the island on arrival */
+  #sicily-label {
     position: fixed;
     top: 44%;
     left: 50%;
@@ -242,7 +242,7 @@
     opacity: 0;
     pointer-events: none;
   }
-  #alcatraz-label .big {
+  #sicily-label .big {
     font-family: 'JetBrains Mono', monospace;
     font-size: clamp(1.6rem, 4vw, 2.6rem);
     font-weight: 500;
@@ -250,7 +250,7 @@
     text-transform: uppercase;
     white-space: nowrap;
   }
-  #alcatraz-label .sub {
+  #sicily-label .sub {
     margin-top: 14px;
     font-size: clamp(0.9rem, 1.4vw, 1.05rem);
     color: var(--text-dim);
@@ -350,15 +350,6 @@
     font-size: 0.92rem;
     color: var(--text-dim);
   }
-  .project .inmate {
-    position: absolute;
-    right: 14px;
-    bottom: 12px;
-    font-size: 0.68rem;
-    color: var(--text-dim);
-    opacity: 0.75;
-  }
-
   /* From Skills on, the map background is no longer needed: solid zone */
   .solid-zone {
     position: relative;
@@ -465,9 +456,9 @@
   <div class="big">San Francisco</div>
   <div class="sub">Multi-UAV Path Planning</div>
 </div>
-<div id="alcatraz-label" aria-hidden="true">
-  <div class="big">Alcatraz</div>
-  <div class="sub">This is where the fleet drops its cargo — a selection of my projects in robotics and autonomous systems.</div>
+<div id="sicily-label" aria-hidden="true">
+  <div class="big">Sicily</div>
+  <div class="sub">An ocean later, the fleet touches down where I'm from — delivering its cargo: my projects in robotics and autonomous systems.</div>
 </div>
 
 <header class="topbar">
@@ -514,63 +505,54 @@
         <div class="project-cover" style="background-image:url('Files%20and%20projects/Terrain%20Relative%20Navigation%20for%20Venus%20Aerobot%20Balloon/Preview/Logo-NASA-icon-PNG.avif');"></div>
         <h3><a href="Files%20and%20projects/Terrain%20Relative%20Navigation%20for%20Venus%20Aerobot%20Balloon/">Terrain Relative Navigation for Venus Aerobot Balloon</a></h3>
         <p class="desc">Brief overview and purpose of the project.</p>
-        <span class="inmate mono" title="At Alcatraz, Capone played banjo in the inmate band, the Rock Islanders, giving Sunday concerts.">Al Capone · Cell B-181</span>
       </div>
 
       <div class="project">
         <div class="project-cover" style="background-image:url('Files%20and%20projects/UAV%20Autonomous%20Navigation%20in%20Urban%20Environment/anteprima/1.png');"></div>
         <h3><a href="progetto-uav.html">UAV Autonomous Navigation in Urban Environment</a></h3>
         <p class="desc">Navigation pipeline for autonomous vehicles integrating A* global path planning and non-linear MPC for dynamic obstacle avoidance.</p>
-        <span class="inmate mono" title="Mastermind of the 1962 escape: he fooled the guards with a dummy head made of soap, plaster and real hair.">Frank Morris · Cell B-138</span>
       </div>
 
       <div class="project">
         <div class="project-cover" style="background-image:url('Files%20and%20projects/License%20Plate%20Segmentation%20and%20Character%20Extraction/anteprima/1%20foto%20originale.png');"></div>
         <h3><a href="license-plate-segmentation.html">License Plate Segmentation and Character Extraction</a></h3>
         <p class="desc">OpenCV pipeline for plate detection, perspective correction, character segmentation and template-based symbol recognition.</p>
-        <span class="inmate mono" title="Longest-serving Alcatraz inmate (about 26 years). Years later, in another prison, he taught guitar to Charles Manson.">Alvin Karpis · AZ-325</span>
       </div>
 
       <div class="project">
         <div class="project-cover" style="background-image:url('Files%20and%20projects/Experimental%20Modal%20Analysis%20and%20Parameter%20Identification%20of%20a%20Light%20Rail%20Wheel/anteprima/Screenshot%202026-07-11%20at%2012.58.15%E2%80%AFPM.png');"></div>
         <h3><a href="experimental-modal-analysis.html">Experimental Modal Analysis and Parameter Identification of a Light Rail Wheel</a></h3>
         <p class="desc">Structural vibration analysis of a light rail wheel using modal parameter extraction and experimental curve fitting.</p>
-        <span class="inmate mono" title="Despite the nickname, Stroud never kept birds at Alcatraz — his canaries stayed at Leavenworth, where he wrote two books on bird diseases.">Robert "Birdman" Stroud · Cell D-42</span>
       </div>
 
       <div class="project">
         <div class="project-cover" style="background-image:url('Files%20and%20projects/Finite%20Element%20Analysis%20and%20Dynamic%20Simulation%20of%20a%20Harbour%20Crane/anteprima/1.png');"></div>
         <h3><a href="harbour-crane.html">Finite Element Analysis and Dynamic Simulation of a Harbour Crane</a></h3>
         <p class="desc">Structural and dynamic FEM analysis of a harbour crane, including modal solution, FRF comparison and moving-load simulation.</p>
-        <span class="inmate mono" title="At Alcatraz Kelly was such a model prisoner that other inmates mockingly called him 'Pop Gun Kelly'.">George "Machine Gun" Kelly · AZ-117</span>
       </div>
 
       <div class="project">
         <div class="project-cover"></div>
         <h3><a href="Files%20and%20projects/Advanced%20dynamics%202/">Advanced dynamics 2</a></h3>
         <p class="desc">Brief overview and purpose of the project.</p>
-        <span class="inmate mono" title="Member of the Ma Barker gang, he was shot in 1939 while trying to escape the island on a makeshift raft.">Arthur "Doc" Barker · AZ-268</span>
       </div>
 
       <div class="project">
         <div class="project-cover"></div>
         <h3><a href="Files%20and%20projects/Data%20analysis/">Data analysis</a></h3>
         <p class="desc">Brief overview and purpose of the project.</p>
-        <span class="inmate mono" title="America's last great train robber: he escaped twice from trains taking him to prison and wrote the memoir 'Hellcatraz'.">Roy Gardner · AZ-110</span>
       </div>
 
       <div class="project">
         <div class="project-cover"></div>
         <h3><a href="Files%20and%20projects/Optimal%20Control%20for%20Shuttle%20take%20off/">Optimal Control for Shuttle take off</a></h3>
         <p class="desc">Brief overview and purpose of the project.</p>
-        <span class="inmate mono" title="His years in solitary and his murder trial inspired the film 'Murder in the First' (1995).">Henri Young · AZ-244</span>
       </div>
 
       <div class="project">
         <div class="project-cover"></div>
         <h3><a href="Files%20and%20projects/Path%20planning%20and%20obstacle%20avoidance/">Path planning and obstacle avoidance</a></h3>
         <p class="desc">Brief overview and purpose of the project.</p>
-        <span class="inmate mono" title="The brothers escaped with Frank Morris on a raft made of stitched raincoats — they were never found.">John &amp; Clarence Anglin · Cells B-150/B-152</span>
       </div>
     </div>
   </section>
@@ -648,8 +630,8 @@
     var mapReady = false;
 
     var MAP_STYLES = {
-      light: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
-      dark: 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json'
+      light: 'https://basemaps.cartocdn.com/gl/positron-nolabels-gl-style/style.json',
+      dark: 'https://basemaps.cartocdn.com/gl/dark-matter-nolabels-gl-style/style.json'
     };
 
     function postToMap(msg) {
@@ -686,16 +668,16 @@
     });
 
     /* Scroll-driven camera: the map starts on the downtown skyscrapers with
-       the drone trajectories, then flies to Alcatraz, arriving with the map
-       full-screen just before the Projects section comes into view. */
+       the drone trajectories, zooms far out and glides across to Sicily,
+       arriving just before the Projects section comes into view. */
     var VIEW_START = { longitude: -122.40, latitude: 37.792, zoom: 15.5, pitch: 60, bearing: 0 };
-    var VIEW_ALCATRAZ = { longitude: -122.4229, latitude: 37.8267, zoom: 15.6, pitch: 35, bearing: -25 };
+    var VIEW_SICILY = { longitude: 14.15, latitude: 37.55, zoom: 6.2, pitch: 0, bearing: 0 };
 
     function lerp(a, b, t) { return a + (b - a) * t; }
     function smoothstep(t) { return t * t * (3 - 2 * t); }
     function clamp01(t) { return Math.max(0, Math.min(1, t)); }
 
-    var alcatrazLabel = document.getElementById('alcatraz-label');
+    var sicilyLabel = document.getElementById('sicily-label');
     var sfLabel = document.getElementById('sf-label');
     var lastP = -1;
     var ticking = false;
@@ -706,13 +688,23 @@
       var projects = document.getElementById('projects');
       var vh = window.innerHeight;
       var end = Math.max(1, projects.offsetTop - vh * 1.6);
-      var p = smoothstep(clamp01(window.scrollY / end));
+      var t = clamp01(window.scrollY / end);
+      var p = smoothstep(t);
+
+      // zoom out to a near-global view first, glide across the Atlantic on
+      // that very wide view, then zoom back in on Sicily at the end: the
+      // background never pans fast
+      var ZOOM_WIDE = 3.0;
+      var zoomOutT = smoothstep(clamp01(t / 0.35));
+      var zoomInT = smoothstep(clamp01((t - 0.72) / 0.28));
+      var zoom = lerp(lerp(VIEW_START.zoom, ZOOM_WIDE, zoomOutT), VIEW_SICILY.zoom, zoomInT);
+      var panT = smoothstep(clamp01((t - 0.3) / 0.6));
 
       // label fades in on arrival, fades out as the Projects panel takes over
       var fadeIn = clamp01((p - 0.78) / 0.22);
       var projTop = projects.getBoundingClientRect().top;
       var fadeOut = clamp01((projTop - vh * 0.3) / (vh * 0.3));
-      alcatrazLabel.style.opacity = (fadeIn * fadeOut).toFixed(3);
+      sicilyLabel.style.opacity = (fadeIn * fadeOut).toFixed(3);
 
       // SAN FRANCISCO label is visible on the intro view and fades out early in the flight
       sfLabel.style.opacity = (1 - clamp01(p / 0.25)).toFixed(3);
@@ -722,11 +714,11 @@
       postToMap({
         type: 'set-view',
         viewState: {
-          longitude: lerp(VIEW_START.longitude, VIEW_ALCATRAZ.longitude, p),
-          latitude: lerp(VIEW_START.latitude, VIEW_ALCATRAZ.latitude, p),
-          zoom: lerp(VIEW_START.zoom, VIEW_ALCATRAZ.zoom, p),
-          pitch: lerp(VIEW_START.pitch, VIEW_ALCATRAZ.pitch, p),
-          bearing: lerp(VIEW_START.bearing, VIEW_ALCATRAZ.bearing, p)
+          longitude: lerp(VIEW_START.longitude, VIEW_SICILY.longitude, panT),
+          latitude: lerp(VIEW_START.latitude, VIEW_SICILY.latitude, panT),
+          zoom: zoom,
+          pitch: lerp(VIEW_START.pitch, VIEW_SICILY.pitch, zoomOutT),
+          bearing: lerp(VIEW_START.bearing, VIEW_SICILY.bearing, zoomOutT)
         }
       });
     }
