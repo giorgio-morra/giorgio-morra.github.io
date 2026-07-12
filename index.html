@@ -198,6 +198,37 @@
   #profile.panel-section { margin-bottom: 160vh; }
   #projects.panel-section { margin-bottom: 30vh; }
 
+  /* "SAN FRANCISCO" label over the downtown buildings on the intro view */
+  #sf-label {
+    position: fixed;
+    top: 16%;
+    left: 72%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    text-align: center;
+    color: var(--text);
+    text-shadow: 0 0 14px var(--bg), 0 0 4px var(--bg);
+    opacity: 1;
+    pointer-events: none;
+  }
+  #sf-label .big {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(1.1rem, 2.6vw, 1.7rem);
+    font-weight: 500;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  #sf-label .sub {
+    margin-top: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(0.65rem, 1.1vw, 0.85rem);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+
   /* "ALCATRAZ" label that fades in over the island on arrival */
   #alcatraz-label {
     position: fixed;
@@ -430,6 +461,10 @@
 <a href="#main-content" class="skip-link">Skip to content</a>
 
 <iframe id="map-bg" src="Files%20and%20projects/interactive_map.html?embed=1" title="San Francisco drone fleet path planning map" aria-hidden="true" tabindex="-1"></iframe>
+<div id="sf-label" aria-hidden="true">
+  <div class="big">San Francisco</div>
+  <div class="sub">Multi-UAV Path Planning</div>
+</div>
 <div id="alcatraz-label" aria-hidden="true">
   <div class="big">Alcatraz</div>
   <div class="sub">This is where the fleet drops its cargo — a selection of my projects in robotics and autonomous systems.</div>
@@ -653,7 +688,7 @@
     /* Scroll-driven camera: the map starts on the downtown skyscrapers with
        the drone trajectories, then flies to Alcatraz, arriving with the map
        full-screen just before the Projects section comes into view. */
-    var VIEW_START = { longitude: -122.3991, latitude: 37.79, zoom: 15.7, pitch: 55, bearing: 0 };
+    var VIEW_START = { longitude: -122.40, latitude: 37.792, zoom: 15.5, pitch: 60, bearing: 0 };
     var VIEW_ALCATRAZ = { longitude: -122.4229, latitude: 37.8267, zoom: 15.6, pitch: 35, bearing: -25 };
 
     function lerp(a, b, t) { return a + (b - a) * t; }
@@ -661,6 +696,7 @@
     function clamp01(t) { return Math.max(0, Math.min(1, t)); }
 
     var alcatrazLabel = document.getElementById('alcatraz-label');
+    var sfLabel = document.getElementById('sf-label');
     var lastP = -1;
     var ticking = false;
 
@@ -677,6 +713,9 @@
       var projTop = projects.getBoundingClientRect().top;
       var fadeOut = clamp01((projTop - vh * 0.3) / (vh * 0.3));
       alcatrazLabel.style.opacity = (fadeIn * fadeOut).toFixed(3);
+
+      // SAN FRANCISCO label is visible on the intro view and fades out early in the flight
+      sfLabel.style.opacity = (1 - clamp01(p / 0.25)).toFixed(3);
 
       if (Math.abs(p - lastP) < 0.0004) return;
       lastP = p;
