@@ -245,10 +245,10 @@
     display: inline-block;
     font-family: 'JetBrains Mono', monospace;
     font-size: clamp(0.65rem, 1.1vw, 0.85rem);
-    letter-spacing: 0.18em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     text-decoration: none;
-    max-width: 440px;
+    white-space: nowrap;
   }
   #sf-label .proj-link:hover { text-decoration: underline; }
 
@@ -594,22 +594,23 @@
       justify-content: center;
       padding: 84px 20px 0;
     }
-    .hero-card { padding: 24px 22px; }
-    .hero-card .hero-photo { width: 104px; height: 104px; margin-bottom: 14px; }
-    .hero-card h1 { font-size: 1.55rem; }
-    .hero-card .role { font-size: 0.9rem; }
-    .download-buttons { margin-top: 18px; gap: 10px; }
-    .download-btn { padding: 9px 22px; font-size: 0.9rem; }
+    .hero-card { padding: 18px 18px; max-width: 300px; }
+    .hero-card .hero-photo { width: 84px; height: 84px; margin-bottom: 12px; }
+    .hero-card h1 { font-size: 1.3rem; }
+    .hero-card .role { font-size: 0.8rem; }
+    .hero-card .keywords { font-size: 0.58rem; margin-top: 8px; }
+    .download-buttons { margin-top: 14px; gap: 8px; }
+    .download-btn { padding: 7px 18px; font-size: 0.82rem; }
     #sf-label {
       top: auto;
       bottom: 14%;
       left: 50%;
       transform: translateX(-50%);
       width: auto;
-      max-width: 92vw;
-      padding: 10px 16px;
+      max-width: 94vw;
+      padding: 7px 12px;
     }
-    #sf-label .proj-link { font-size: 0.72rem; letter-spacing: 0.14em; }
+    #sf-label .proj-link { font-size: clamp(0.45rem, 2.4vw, 0.68rem); letter-spacing: 0.05em; }
     .panel-section { margin: 14vh 16px; padding: 32px 22px; }
     /* Profile on phone: full-width cards, tighter gap between the two boxes */
     #profile.panel-section { margin-bottom: 20px; }
@@ -668,7 +669,7 @@
 
   <section id="profile" class="panel-section">
     <div class="section-head"><span class="num">01</span><h2>Profile</h2></div>
-    <p>Hi, I'm <strong>Giorgio Morra</strong>, born in Sicily — the land that gave the world Archimedes' pi and canned tuna in oil. Matching the tuna is out of reach, so I settle for being a passionate engineer and researcher specializing in planning, high-level control, and navigation for exploration vehicles. I work across the full autonomy stack, from sensing and state estimation up to planning and control, and I enjoy building machines that can find their own way through places we haven't explored yet. Alongside the controls and software side, I bring an advanced mechanical engineering background — as comfortable with structural dynamics and machine design as with control loops and code.</p>
+    <p>Hi, my name is <strong>Giorgio Morra</strong>, I was born in Sicily, the land that gave the world Archimedes' pi and canned tuna in oil. Matching the tuna is out of reach, so I settle for being a passionate engineer and researcher specializing in planning, high-level control, and navigation for exploration vehicles. I work across the full autonomy stack, from sensing and state estimation up to planning and control, and I enjoy building machines that can find their own way through places we haven't explored yet. Alongside the controls and software side, I bring an advanced mechanical engineering background.</p>
   </section>
 
   <section id="experience" class="panel-section">
@@ -872,7 +873,7 @@
        the screen, next to the Profile panel. */
     var isPhone = window.matchMedia('(max-width: 900px)').matches;
     var VIEW_START = isPhone
-      ? { longitude: -122.397, latitude: 37.795, zoom: 14.5, pitch: 55, bearing: 0 }   // telefono
+      ? { longitude: -122.397, latitude: 37.7999, zoom: 13.3, pitch: 55, bearing: 0 }   // telefono
       : { longitude: -122.40, latitude: 37.792, zoom: 15.2, pitch: 60, bearing: 0 };  // desktop
     var VIEW_SICILY = isPhone
       ? { longitude: 14.15, latitude: 37.55, zoom: 6.2, pitch: 0, bearing: 0 }
