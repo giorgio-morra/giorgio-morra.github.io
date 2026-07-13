@@ -205,8 +205,8 @@
   /* "SAN FRANCISCO" label over the downtown buildings on the intro view */
   #sf-label {
     position: fixed;
-    top: 16%;
-    left: 72%;
+    top: 25%;
+    left: 67%;
     transform: translate(-50%, -50%);
     z-index: 0;
     text-align: center;
@@ -217,14 +217,13 @@
   }
   #sf-label .big {
     font-family: 'JetBrains Mono', monospace;
-    font-size: clamp(1.1rem, 2.6vw, 1.7rem);
+    font-size: clamp(1rem, 2.2vw, 1.45rem);
     font-weight: 500;
-    letter-spacing: 0.45em;
+    letter-spacing: 0.3em;
     text-transform: uppercase;
     white-space: nowrap;
   }
   #sf-label .sub {
-    margin-top: 10px;
     font-family: 'JetBrains Mono', monospace;
     font-size: clamp(0.65rem, 1.1vw, 0.85rem);
     letter-spacing: 0.3em;
@@ -286,6 +285,62 @@
     font-size: 1rem;
   }
   #profile p strong { color: var(--text); font-weight: 600; }
+  .profile-sub {
+    margin: 30px 0 14px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+  }
+  .timeline {
+    list-style: none;
+    display: grid;
+    gap: 8px;
+  }
+  .timeline li {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 14px;
+    align-items: baseline;
+    font-size: 0.88rem;
+    color: var(--text-dim);
+  }
+  .tl-date {
+    font-size: 0.72rem;
+    color: var(--accent);
+    white-space: nowrap;
+    text-align: right;
+  }
+  .timeline strong { color: var(--text); font-weight: 600; }
+  .now-box {
+    margin-top: 30px;
+  }
+  .now-box .now-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .now-box .now-org {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .now-box .now-org img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+  }
+  .now-box .now-org strong { font-size: 1.02rem; }
+  #profile .now-box p { margin-bottom: 0; font-size: 0.95rem; }
+  @media (max-width: 900px) {
+    .timeline li { grid-template-columns: 1fr; gap: 2px; }
+    .tl-date { text-align: left; }
+  }
   .facts {
     margin-top: 28px;
     display: grid;
@@ -353,6 +408,33 @@
   .project .desc {
     font-size: 0.92rem;
     color: var(--text-dim);
+  }
+  /* small topic pills inside the card, mirroring the project page header */
+  .project .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: -2px 0 10px;
+  }
+  .project .tags span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    line-height: 1.4;
+    padding: 2px 7px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--panel);
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+  /* Sicilian dish/dessert paired with each project */
+  .project .food {
+    display: block;
+    margin-top: 10px;
+    text-align: right;
+    font-size: 0.68rem;
+    color: var(--text-dim);
+    opacity: 0.8;
   }
   /* From Skills on, the map background is no longer needed: solid zone */
   .solid-zone {
@@ -462,8 +544,7 @@
       transform: translateX(-50%);
       width: 100%;
     }
-    #sf-label .big { font-size: 1.35rem; letter-spacing: 0.3em; }
-    #sf-label .sub { font-size: 0.72rem; letter-spacing: 0.22em; }
+    #sf-label .sub { font-size: 0.72rem; letter-spacing: 0.2em; }
     .panel-section { margin: 14vh 16px; padding: 32px 22px; }
     .projects-grid { grid-template-columns: 1fr; }
     .facts, .skill-grid { grid-template-columns: 1fr; }
@@ -478,12 +559,11 @@
 
 <iframe id="map-bg" src="Files%20and%20projects/interactive_map.html?embed=1" title="San Francisco drone fleet path planning map" aria-hidden="true" tabindex="-1"></iframe>
 <div id="sf-label" aria-hidden="true">
-  <div class="big">San Francisco</div>
   <div class="sub">Multi-UAV Path Planning</div>
 </div>
 <div id="sicily-label" aria-hidden="true">
   <div class="big">Sicily</div>
-  <div class="sub">An ocean later, the fleet touches down where I'm from — delivering its cargo: my projects in robotics and autonomous systems.</div>
+  <div class="sub">Where it all began. To stay true to my origins, every project comes paired with a traditional Sicilian dish or dessert. Enjoy the menu!</div>
 </div>
 
 <header class="topbar">
@@ -512,13 +592,25 @@
 
   <section id="profile" class="panel-section">
     <div class="section-head"><span class="num">01</span><h2>Profile</h2></div>
-    <p>I'm <strong>Giorgio Morra</strong>, a passionate engineer and researcher focused on high-level automation, perception, and decision making for autonomous systems. I design and integrate sensing, planning, and control to make robots navigate and act reliably in complex environments.</p>
-    <p>My approach blends system-level thinking with practical implementation: I translate requirements into robust architectures, validate them through iteration, and ensure the resulting systems are effective in the real world.</p>
+    <p>Hi, I'm <strong>Giorgio Morra</strong>, a passionate engineer and researcher specializing in navigation, high-level control, and perception for exploration vehicles. I thrive at the intersection of robotics, autonomy, and real-world impact, with a focus on the full autonomy stack — from sensing and state estimation to planning and control.</p>
+    <p>I love building systems that sense, decide, and move through worlds we haven't explored yet.</p>
 
-    <div class="facts">
-      <div><div class="k">Institution</div><div class="v">Politecnico di Milano</div></div>
-      <div><div class="k">Degree program</div><div class="v">Mechatronics and Robotics</div></div>
-      <div><div class="k">Expected graduation</div><div class="v">October, 2026</div></div>
+    <h3 class="profile-sub">Experience Timeline</h3>
+    <ul class="timeline">
+      <li><span class="tl-date mono">2026 (expected)</span><span>M.Sc. Mechanical Engineering — Mechatronics &amp; Robotics, <strong>Politecnico di Milano</strong></span></li>
+      <li><span class="tl-date mono">Dec 2025 – Present</span><span>Visiting Research Student, <strong>NASA JPL</strong> — Master's thesis on the Venus Variable Altitude Aerobot</span></li>
+      <li><span class="tl-date mono">—</span><span>International Mobility Extra-EU, <strong>Pontificia Universidad Javeriana</strong>, Colombia</span></li>
+      <li><span class="tl-date mono">2020 – 2023</span><span>B.Sc. Mechanical Engineering, <strong>Politecnico di Milano</strong></span></li>
+      <li><span class="tl-date mono">—</span><span>Erasmus+ Program, <strong>Universidad Pontificia Comillas</strong>, Spain</span></li>
+    </ul>
+
+    <div class="now-box">
+      <div class="now-title">What am I doing now?</div>
+      <div class="now-org">
+        <img src="Files%20and%20projects/Terrain%20Relative%20Navigation%20for%20Venus%20Aerobot%20Balloon/Preview/Logo-NASA-icon-PNG.avif" alt="NASA logo">
+        <strong>Jet Propulsion Laboratory, Pasadena, CA</strong>
+      </div>
+      <p>Research on navigation strategies for the Venus Variable Altitude Balloon, keeping the aerobot localized through the periods when it is occluded from the Deep Space Network.</p>
     </div>
   </section>
 
@@ -530,55 +622,60 @@
         <div class="project-cover" style="background-image:url('Files%20and%20projects/Terrain%20Relative%20Navigation%20for%20Venus%20Aerobot%20Balloon/Preview/Logo-NASA-icon-PNG.avif');"></div>
         <h3><a href="Files%20and%20projects/Terrain%20Relative%20Navigation%20for%20Venus%20Aerobot%20Balloon/">Terrain Relative Navigation for Venus Aerobot Balloon</a></h3>
         <p class="desc">Brief overview and purpose of the project.</p>
+        <span class="food mono">Frutta martorana</span>
       </div>
 
       <div class="project">
         <div class="project-cover" style="background-image:url('Files%20and%20projects/UAV%20Autonomous%20Navigation%20in%20Urban%20Environment/anteprima/1.png');"></div>
         <h3><a href="progetto-uav.html">UAV Autonomous Navigation in Urban Environment</a></h3>
+        <div class="tags"><span>A* Path Planning</span><span>Model Predictive Control</span><span>3D Navigation</span><span>Dynamic Obstacle Avoidance</span></div>
         <p class="desc">Navigation pipeline for autonomous vehicles integrating A* global path planning and non-linear MPC for dynamic obstacle avoidance.</p>
+        <span class="food mono">Cannolo</span>
+      </div>
+
+      <div class="project">
+        <div class="project-cover" style="background-image:url('Files%20and%20projects/1-DoF%20Robotic%20Exoskeleton%20for%20Elbow%20Rehabilitation/Anteprima/Screenshot%202026-07-12%20at%202.15.21%E2%80%AFPM.png');"></div>
+        <h3><a href="robotic-exoskeleton.html">1-DoF Robotic Exoskeleton for Elbow Rehabilitation</a></h3>
+        <div class="tags"><span>Python</span><span>Arduino</span><span>Admittance control</span><span>Teach-and-play rehabilitation</span></div>
+        <p class="desc">Collaborative exoskeleton for post-stroke elbow rehabilitation with a teach-and-play strategy: admittance-controlled trajectory recording and autonomous replay on Arduino.</p>
+        <span class="food mono">Arancina</span>
       </div>
 
       <div class="project">
         <div class="project-cover" style="background-image:url('Files%20and%20projects/License%20Plate%20Segmentation%20and%20Character%20Extraction/anteprima/1%20foto%20originale.png');"></div>
         <h3><a href="license-plate-segmentation.html">License Plate Segmentation and Character Extraction</a></h3>
+        <div class="tags"><span>OpenCV</span><span>Gaussian filtering</span><span>Canny edge detection</span><span>Template matching</span></div>
         <p class="desc">OpenCV pipeline for plate detection, perspective correction, character segmentation and template-based symbol recognition.</p>
+        <span class="food mono">Granita con brioche</span>
+      </div>
+
+      <div class="project">
+        <div class="project-cover" style="background-image:url('Files%20and%20projects/Mechanical%20Design%20and%20Structural%20Dynamics%20of%20a%20Front-Loading%20Washing%20Machine/Screenshot%202026-07-12%20at%203.51.55%E2%80%AFPM.png');"></div>
+        <h3><a href="washing-machine.html">Mechanical Design and Structural Dynamics of a Front-Loading Washing Machine</a></h3>
+        <div class="tags"><span>Rapid prototyping</span><span>Mechanical design</span><span>CATIA V5</span><span>Tuned mass dampers</span></div>
+        <p class="desc">Complete design of a 6 kg washing machine: drivetrain sizing, shaft and bearing verification, CATIA V5 drawings, FEM validation and TMD-based vibration control.</p>
+        <span class="food mono">Cassata</span>
       </div>
 
       <div class="project">
         <div class="project-cover" style="background-image:url('Files%20and%20projects/Experimental%20Modal%20Analysis%20and%20Parameter%20Identification%20of%20a%20Light%20Rail%20Wheel/anteprima/Screenshot%202026-07-11%20at%2012.58.15%E2%80%AFPM.png');"></div>
         <h3><a href="experimental-modal-analysis.html">Experimental Modal Analysis and Parameter Identification of a Light Rail Wheel</a></h3>
+        <div class="tags"><span>Modal analysis</span><span>Mode shapes</span><span>Parameter ID</span><span>Frequency response</span></div>
         <p class="desc">Structural vibration analysis of a light rail wheel using modal parameter extraction and experimental curve fitting.</p>
+        <span class="food mono">Pasta alla Norma</span>
       </div>
 
       <div class="project">
         <div class="project-cover" style="background-image:url('Files%20and%20projects/Finite%20Element%20Analysis%20and%20Dynamic%20Simulation%20of%20a%20Harbour%20Crane/anteprima/1.png');"></div>
         <h3><a href="harbour-crane.html">Finite Element Analysis and Dynamic Simulation of a Harbour Crane</a></h3>
+        <div class="tags"><span>2D FEM model assembly</span><span>Modal eigenvalue analysis</span><span>Frequency response functions</span><span>Moving-load response</span></div>
         <p class="desc">Structural and dynamic FEM analysis of a harbour crane, including modal solution, FRF comparison and moving-load simulation.</p>
+        <span class="food mono">Pane e panelle</span>
       </div>
 
-      <div class="project">
-        <div class="project-cover"></div>
-        <h3><a href="Files%20and%20projects/Advanced%20dynamics%202/">Advanced dynamics 2</a></h3>
-        <p class="desc">Brief overview and purpose of the project.</p>
-      </div>
 
-      <div class="project">
-        <div class="project-cover"></div>
-        <h3><a href="Files%20and%20projects/Data%20analysis/">Data analysis</a></h3>
-        <p class="desc">Brief overview and purpose of the project.</p>
-      </div>
 
-      <div class="project">
-        <div class="project-cover"></div>
-        <h3><a href="Files%20and%20projects/Optimal%20Control%20for%20Shuttle%20take%20off/">Optimal Control for Shuttle take off</a></h3>
-        <p class="desc">Brief overview and purpose of the project.</p>
-      </div>
 
-      <div class="project">
-        <div class="project-cover"></div>
-        <h3><a href="Files%20and%20projects/Path%20planning%20and%20obstacle%20avoidance/">Path planning and obstacle avoidance</a></h3>
-        <p class="desc">Brief overview and purpose of the project.</p>
-      </div>
     </div>
   </section>
 
@@ -697,8 +794,8 @@
        arriving just before the Projects section comes into view. */
     var isPhone = window.matchMedia('(max-width: 900px)').matches;
     var VIEW_START = isPhone
-      ? { longitude: -122.397, latitude: 37.795, zoom: 14.3, pitch: 55, bearing: 0 }   // telefono
-      : { longitude: -122.40, latitude: 37.792, zoom: 15.5, pitch: 60, bearing: 0 };  // desktop
+      ? { longitude: -122.397, latitude: 37.795, zoom: 14.5, pitch: 55, bearing: 0 }   // telefono
+      : { longitude: -122.40, latitude: 37.792, zoom: 15.2, pitch: 60, bearing: 0 };  // desktop
     var VIEW_SICILY = { longitude: 14.15, latitude: 37.55, zoom: 6.2, pitch: 0, bearing: 0 };
 
     function lerp(a, b, t) { return a + (b - a) * t; }

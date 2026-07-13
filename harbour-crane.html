@@ -181,25 +181,27 @@
       gap: 16px;
     }
     .theme-btn {
+      width: 34px;
+      height: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       background: none;
       border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
-      font-family: inherit;
-      font-size: 0.8rem;
-      letter-spacing: normal;
-      text-transform: none;
-      padding: 7px 12px;
+      border-radius: 50%;
+      font-size: 1.05rem;
+      line-height: 1;
+      padding: 0;
       cursor: pointer;
     }
-    .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .theme-btn:hover { border-color: var(--accent); }
 </style>
 </head>
 <body>
   <div class="page-wrap">
     <div class="topbar">
       <a href="index.html">← Back to portfolio</a>
-      <span class="topbar-right"><span>Project details</span><button class="theme-btn" id="themeToggle">Theme: <span id="themeLabel">Light</span></button></span>
+      <span class="topbar-right"><span>Project details</span><button class="theme-btn" id="themeToggle" aria-label="Toggle light/dark theme"><span id="themeLabel">☀️</span></button></span>
     </div>
 
     <section class="project-header">
@@ -254,10 +256,6 @@
         </ul>
       </section>
   
-    <section class="project-block">
-        <h2>Alcatraz Fun Fact — George "Machine Gun" Kelly — AZ-117</h2>
-        <p>This project is guarded by George 'Machine Gun' Kelly, once billed as the most dangerous gangster in America. Fun fact: at Alcatraz he behaved so well — working in the industries and serving as altar boy at chapel services — that the other inmates mockingly renamed him 'Pop Gun Kelly'.</p>
-    </section>
   </main>
   </div>
 
@@ -278,7 +276,7 @@
     var root = document.documentElement;
     var label = document.getElementById('themeLabel');
     function sync() {
-      label.textContent = root.getAttribute('data-theme') === 'dark' ? 'Dark' : 'Light';
+      label.textContent = root.getAttribute('data-theme') === 'dark' ? '🌙' : '☀️';
     }
     sync();
     document.getElementById('themeToggle').addEventListener('click', function () {
