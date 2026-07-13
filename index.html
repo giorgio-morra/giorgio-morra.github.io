@@ -166,6 +166,13 @@
     color: var(--text-dim);
     letter-spacing: 0.04em;
   }
+  .hero-card .keywords {
+    margin-top: 10px;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
   .download-buttons {
     margin-top: 28px;
     display: flex;
@@ -219,29 +226,31 @@
     top: 25%;
     left: 67%;
     transform: translate(-50%, -50%);
-    z-index: 0;
+    z-index: 2;
     text-align: center;
     color: var(--text);
     text-shadow: 0 0 14px var(--bg), 0 0 4px var(--bg);
     opacity: 1;
     pointer-events: none;
+    background: var(--glass);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 20px;
   }
-  #sf-label .big {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: clamp(1rem, 2.2vw, 1.45rem);
-    font-weight: 500;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-  #sf-label .sub {
+  /* the label itself ignores clicks, but the linked project title stays clickable */
+  #sf-label .proj-link {
+    pointer-events: auto;
+    display: inline-block;
     font-family: 'JetBrains Mono', monospace;
     font-size: clamp(0.65rem, 1.1vw, 0.85rem);
-    letter-spacing: 0.3em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--text-dim);
-    white-space: nowrap;
+    text-decoration: none;
+    max-width: 440px;
   }
+  #sf-label .proj-link:hover { text-decoration: underline; }
 
   /* "Scroll down" hint at the bottom of the intro view */
   #scroll-hint {
@@ -427,6 +436,19 @@
     transform: scale(1.03);
     box-shadow: 0 20px 40px rgba(20, 108, 122, 0.12);
   }
+  /* landing target for the hero link: keep clear of the fixed topbar */
+  #project-uav { scroll-margin-top: 100px; }
+  /* temporary glow when arriving from the hero "View the project" link */
+  .project.spotlight {
+    animation: project-spotlight 2.4s ease both;
+  }
+  @keyframes project-spotlight {
+    0%, 55% {
+      box-shadow: 0 0 0 3px var(--accent), 0 20px 44px rgba(20, 108, 122, 0.28);
+      transform: scale(1.03);
+    }
+    100% { box-shadow: none; transform: none; }
+  }
   .project-cover {
     width: 100%;
     position: relative;
@@ -583,9 +605,11 @@
       bottom: 14%;
       left: 50%;
       transform: translateX(-50%);
-      width: 100%;
+      width: auto;
+      max-width: 92vw;
+      padding: 10px 16px;
     }
-    #sf-label .sub { font-size: 0.72rem; letter-spacing: 0.2em; }
+    #sf-label .proj-link { font-size: 0.72rem; letter-spacing: 0.14em; }
     .panel-section { margin: 14vh 16px; padding: 32px 22px; }
     /* Profile on phone: full-width cards, tighter gap between the two boxes */
     #profile.panel-section { margin-bottom: 20px; }
@@ -605,8 +629,8 @@
 <a href="#main-content" class="skip-link">Skip to content</a>
 
 <iframe id="map-bg" src="Files%20and%20projects/interactive_map.html?embed=1" title="San Francisco drone fleet path planning map" aria-hidden="true" tabindex="-1"></iframe>
-<div id="sf-label" aria-hidden="true">
-  <div class="sub">Multi-UAV Path Planning</div>
+<div id="sf-label">
+  <a class="proj-link" href="#projects" id="sf-proj-link">UAV Autonomous Navigation in Urban Environment →</a>
 </div>
 <div id="scroll-hint" aria-hidden="true">
   <span class="txt">Scroll down</span>
@@ -634,6 +658,7 @@
       <img class="hero-photo" src="images/profile.jpg" alt="Giorgio Morra">
       <h1>Giorgio Morra</h1>
       <div class="role">Robotics and Autonomous Systems</div>
+      <div class="keywords mono">Motion Planning · Control · Navigation · Autonomy </div>
       <div class="download-buttons">
         <a class="download-btn" href="Files%20and%20projects/CV_Giorgio_Morra.pdf" download="Giorgio_Morra_CV.pdf">CV</a>
         <a class="download-btn" href="Files%20and%20projects/Resume_Giorgio_Morra.pdf" download="Giorgio_Morra_Resume.pdf">Resume</a>
@@ -643,13 +668,13 @@
 
   <section id="profile" class="panel-section">
     <div class="section-head"><span class="num">01</span><h2>Profile</h2></div>
-    <p>Hi, I'm <strong>Giorgio Morra</strong>, born in Sicily — the land that gave the world Archimedes' pi and canned tuna in oil. Matching the tuna is out of reach, so I settle for being a passionate engineer and researcher specializing in navigation, high-level control, and perception for exploration vehicles. I thrive at the intersection of robotics, autonomy, and real-world impact, with a focus on the full autonomy stack — from sensing and state estimation to planning and control. I love building systems that sense, decide, and move through worlds we haven't explored yet.</p>
+    <p>Hi, I'm <strong>Giorgio Morra</strong>, born in Sicily — the land that gave the world Archimedes' pi and canned tuna in oil. Matching the tuna is out of reach, so I settle for being a passionate engineer and researcher specializing in planning, high-level control, and navigation for exploration vehicles. I work across the full autonomy stack, from sensing and state estimation up to planning and control, and I enjoy building machines that can find their own way through places we haven't explored yet. Alongside the controls and software side, I bring an advanced mechanical engineering background — as comfortable with structural dynamics and machine design as with control loops and code.</p>
   </section>
 
   <section id="experience" class="panel-section">
     <h3 class="profile-sub">Experience Timeline</h3>
     <ul class="timeline">
-      <li><span class="tl-date mono">2026 (expected)</span><span>M.Sc. Mechanical Engineering — Mechatronics &amp; Robotics, <strong>Politecnico di Milano</strong></span></li>
+      <li><span class="tl-date mono">Oct, 2026 (expected)</span><span>M.Sc. Mechanical Engineering — Mechatronics &amp; Robotics, <strong>Politecnico di Milano</strong></span></li>
       <li><span class="tl-date mono">Dec 2025 – Present</span><span>Visiting Research Student, <strong>NASA JPL</strong> — Master's thesis on the Venus Variable Altitude Aerobot</span></li>
       <li><span class="tl-date mono">—</span><span>International Mobility Extra-EU, <strong>Pontificia Universidad Javeriana</strong>, Colombia</span></li>
       <li><span class="tl-date mono">2020 – 2023</span><span>B.Sc. Mechanical Engineering, <strong>Politecnico di Milano</strong></span></li>
@@ -676,7 +701,7 @@
         <p class="desc">Brief overview and purpose of the project.</p>
       </div>
 
-      <div class="project">
+      <div class="project" id="project-uav">
         <div class="project-cover" style="background-image:url('Files%20and%20projects/UAV%20Autonomous%20Navigation%20in%20Urban%20Environment/anteprima/1.png');"></div>
         <h3><a href="progetto-uav.html">UAV Autonomous Navigation in Urban Environment</a></h3>
         <div class="tags"><span>A* Path Planning</span><span>Model Predictive Control</span><span>3D Navigation</span><span>Dynamic Obstacle Avoidance</span></div>
@@ -784,9 +809,8 @@
     <section id="contact">
       <div class="section-head"><span class="num">04</span><h2>Contact</h2></div>
       <div class="contact-table">
-        <div><span class="k">Email</span><a href="mailto:youremail@example.com">youremail@example.com</a></div>
-        <div><span class="k">GitHub</span><a href="https://github.com/giorgio-morra" target="_blank">github.com/giorgio-morra</a></div>
-        <div><span class="k">LinkedIn</span><a href="#" target="_blank">linkedin.com/in/giorgio-morra</a></div>
+        <div><span class="k">Email</span><a href="mailto:giorgiomorra1@outlook.com">giorgiomorra1@outlook.com</a></div>
+        <div><span class="k">LinkedIn</span><a href="https://www.linkedin.com/in/giorgio-morra/" target="_blank">linkedin.com/in/giorgio-morra</a></div>
       </div>
     </section>
 
@@ -890,7 +914,10 @@
       sicilyLabel.style.opacity = (fadeIn * fadeOut).toFixed(3);
 
       // SAN FRANCISCO label is visible on the intro view and fades out early in the flight
-      sfLabel.style.opacity = (1 - clamp01(p / 0.25)).toFixed(3);
+      var sfOpacity = 1 - clamp01(p / 0.25);
+      sfLabel.style.opacity = sfOpacity.toFixed(3);
+      // once faded out, hide it so the project link is no longer clickable
+      sfLabel.style.visibility = sfOpacity < 0.02 ? 'hidden' : 'visible';
 
       // scroll hint disappears as soon as the user starts scrolling
       scrollHint.style.opacity = (1 - clamp01(p / 0.08)).toFixed(3);
@@ -918,6 +945,50 @@
 
     window.addEventListener('scroll', requestCameraUpdate, { passive: true });
     window.addEventListener('resize', requestCameraUpdate);
+
+    /* hero "View the project" link: scroll to Projects, then spotlight the UAV card */
+    var sfProjLink = document.getElementById('sf-proj-link');
+    if (sfProjLink) {
+      sfProjLink.addEventListener('click', function (e) {
+        var card = document.getElementById('project-uav');
+        if (!card) return;
+        // on phone the projects are stacked in one column and the UAV card
+        // sits below the fold: scroll straight to the card instead of the
+        // section head
+        if (isPhone) {
+          e.preventDefault();
+          card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        card.classList.remove('spotlight');
+        var fired = false;
+        function spotlight() {
+          if (fired) return;
+          fired = true;
+          card.classList.add('spotlight');
+          card.addEventListener('animationend', function () {
+            card.classList.remove('spotlight');
+          }, { once: true });
+        }
+        // fire when the smooth scroll settles; where scrollend is missing
+        // (e.g. iOS Safari) poll until the page stops moving
+        if ('onscrollend' in window) {
+          window.addEventListener('scrollend', spotlight, { once: true });
+          setTimeout(spotlight, 3000);
+        } else {
+          var lastY = -1, still = 0;
+          var poll = setInterval(function () {
+            if (Math.abs(window.scrollY - lastY) < 2) {
+              still++;
+              if (still >= 3) { clearInterval(poll); spotlight(); }
+            } else {
+              still = 0;
+              lastY = window.scrollY;
+            }
+          }, 120);
+          setTimeout(function () { clearInterval(poll); spotlight(); }, 4000);
+        }
+      });
+    }
 
     window.addEventListener('message', function (ev) {
       if (ev.data && ev.data.type === 'map-ready') {
