@@ -207,7 +207,7 @@
   }
   /* long stretch of pure map between Hero and Profile: room to fly to Sicily,
      arriving right as the Profile panel comes into view */
-  #profile.panel-section { margin-top: 160vh; margin-bottom: 12vh; }
+  #profile.panel-section { margin-top: 20vh; margin-bottom: 12vh; }
   #experience.panel-section { margin-top: 0; margin-bottom: 30vh; }
   #projects.panel-section { margin-bottom: 30vh; }
   /* on desktop the Profile paragraph sits on the left, leaving Sicily
@@ -239,6 +239,18 @@
     border-radius: 12px;
     padding: 12px 20px;
   }
+  /* caption above the project link: says what the animation is and whose it is */
+  #sf-label .demo-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(0.6rem, 1vw, 0.78rem);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+    white-space: nowrap;
+    line-height: 1.5;
+  }
+  #sf-label .demo-tag strong { color: var(--accent); font-weight: 600; }
   /* the label itself ignores clicks, but the linked project title stays clickable */
   #sf-label .proj-link {
     pointer-events: auto;
@@ -610,7 +622,13 @@
       max-width: 94vw;
       padding: 7px 12px;
     }
-    #sf-label .proj-link { font-size: clamp(0.45rem, 2.4vw, 0.68rem); letter-spacing: 0.05em; }
+    #sf-label .proj-link { font-size: clamp(0.45rem, 2.4vw, 0.68rem); letter-spacing: 0.05em; white-space: normal; }
+    #sf-label .demo-tag {
+      font-size: clamp(0.5rem, 2.6vw, 0.62rem);
+      letter-spacing: 0.04em;
+      margin-bottom: 4px;
+      white-space: normal;
+    }
     .panel-section { margin: 14vh 16px; padding: 32px 22px; }
     /* Profile on phone: full-width cards, tighter gap between the two boxes */
     #profile.panel-section { margin-bottom: 20px; }
@@ -631,6 +649,7 @@
 
 <iframe id="map-bg" src="Files%20and%20projects/interactive_map.html?embed=1" title="San Francisco drone fleet path planning map" aria-hidden="true" tabindex="-1"></iframe>
 <div id="sf-label">
+  <div class="demo-tag"><strong>On this map</strong> — a drone fleet routed by my path-planning algorithm</div>
   <a class="proj-link" href="#projects" id="sf-proj-link">UAV Autonomous Navigation in Urban Environment →</a>
 </div>
 <div id="scroll-hint" aria-hidden="true">
@@ -742,6 +761,13 @@
         <h3><a href="experimental-modal-analysis.html">Experimental Modal Analysis and Parameter Identification of a Light Rail Wheel</a></h3>
         <div class="tags"><span>Modal analysis</span><span>Mode shapes</span><span>Parameter ID</span><span>Frequency response</span></div>
         <p class="desc">Vibration analysis of a light rail wheel via modal parameter extraction and experimental curve fitting.</p>
+      </div>
+
+      <div class="project">
+        <div class="project-cover" style="background-image:url('Files%20and%20projects/Vibration%20Control%20with%20a%20Piezoelectric%20Bender%20and%20an%20Active%20Electric%20Impedance/anteprima/2-mechanical-system.jpg');"></div>
+        <h3><a href="piezoelectric-vibration-control.html">Vibration Control with a Piezoelectric Bender and an Active Electric Impedance</a></h3>
+        <div class="tags"><span>Piezoelectric shunt damping</span><span>FRF estimation</span><span>Modal extraction</span><span>Analog circuit design</span></div>
+        <p class="desc">Experimental vibration control of a cantilever beam via a negative-capacitance shunt: 13.9 dB attenuation of the first mode.</p>
       </div>
 
       <div class="project">
