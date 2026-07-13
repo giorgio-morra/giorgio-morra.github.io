@@ -198,9 +198,20 @@
     border: 1px solid var(--border);
     border-radius: 20px;
   }
-  /* long stretch of pure map between Profile and Projects: room to fly to Sicily */
-  #profile.panel-section { margin-bottom: 160vh; }
+  /* long stretch of pure map between Hero and Profile: room to fly to Sicily,
+     arriving right as the Profile panel comes into view */
+  #profile.panel-section { margin-top: 160vh; margin-bottom: 12vh; }
+  #experience.panel-section { margin-top: 0; margin-bottom: 30vh; }
   #projects.panel-section { margin-bottom: 30vh; }
+  /* on desktop the Profile paragraph sits on the left, leaving Sicily
+     visible on the map to its right; the Experience box below is full width */
+  @media (min-width: 901px) {
+    #profile.panel-section {
+      max-width: 58vw;
+      margin-left: 4vw;
+      margin-right: auto;
+    }
+  }
 
   /* "SAN FRANCISCO" label over the downtown buildings on the intro view */
   #sf-label {
@@ -232,6 +243,34 @@
     white-space: nowrap;
   }
 
+  /* "Scroll down" hint at the bottom of the intro view */
+  #scroll-hint {
+    position: fixed;
+    bottom: 26px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-shadow: 0 0 10px var(--bg);
+    pointer-events: none;
+  }
+  #scroll-hint .chev {
+    font-size: 1.1rem;
+    animation: scroll-bounce 1.6s ease-in-out infinite;
+  }
+  @keyframes scroll-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+
   /* "SICILY" label that fades in over the island on arrival */
   #sicily-label {
     position: fixed;
@@ -247,7 +286,7 @@
   }
   #sicily-label .big {
     font-family: 'JetBrains Mono', monospace;
-    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    font-size: clamp(1.05rem, 2.2vw, 1.5rem);
     font-weight: 500;
     letter-spacing: 0.45em;
     text-transform: uppercase;
@@ -260,6 +299,14 @@
     max-width: 620px;
     margin-left: auto;
     margin-right: auto;
+  }
+  /* on desktop the label sits over the island, in the right strip next to the Profile */
+  @media (min-width: 901px) {
+    #sicily-label {
+      left: 79%;
+      width: 34vw;
+    }
+    #sicily-label .sub { font-size: clamp(0.75rem, 1vw, 0.9rem); }
   }
 
   .section-head {
@@ -278,13 +325,16 @@
     font-weight: 700;
   }
 
-  /* Profile */
-  #profile p {
+  /* Profile + Experience */
+  #profile p, #experience p {
     color: var(--text-dim);
     margin-bottom: 14px;
     font-size: 1rem;
   }
-  #profile p strong { color: var(--text); font-weight: 600; }
+  #profile p { margin-bottom: 0; }
+  #profile p em { color: var(--accent); font-style: italic; }
+  #profile p strong, #experience p strong { color: var(--text); font-weight: 600; }
+  #experience .profile-sub:first-child { margin-top: 0; }
   .profile-sub {
     margin: 30px 0 14px;
     font-size: 0.85rem;
@@ -336,7 +386,7 @@
     object-fit: contain;
   }
   .now-box .now-org strong { font-size: 1.02rem; }
-  #profile .now-box p { margin-bottom: 0; font-size: 0.95rem; }
+  #experience .now-box p { margin-bottom: 0; font-size: 0.95rem; }
   @media (max-width: 900px) {
     .timeline li { grid-template-columns: 1fr; gap: 2px; }
     .tl-date { text-align: left; }
@@ -426,15 +476,6 @@
     background: var(--panel);
     color: var(--text-dim);
     white-space: nowrap;
-  }
-  /* Sicilian dish/dessert paired with each project */
-  .project .food {
-    display: block;
-    margin-top: 10px;
-    text-align: right;
-    font-size: 0.68rem;
-    color: var(--text-dim);
-    opacity: 0.8;
   }
   /* From Skills on, the map background is no longer needed: solid zone */
   .solid-zone {
@@ -546,6 +587,12 @@
     }
     #sf-label .sub { font-size: 0.72rem; letter-spacing: 0.2em; }
     .panel-section { margin: 14vh 16px; padding: 32px 22px; }
+    /* Profile on phone: full-width cards, tighter gap between the two boxes */
+    #profile.panel-section { margin-bottom: 20px; }
+    #experience.panel-section { margin-top: 0; margin-bottom: 20vh; }
+    #profile p { font-size: 0.95rem; line-height: 1.6; }
+    #sicily-label { width: 92vw; }
+    #sicily-label .sub { font-size: 0.85rem; }
     .projects-grid { grid-template-columns: 1fr; }
     .facts, .skill-grid { grid-template-columns: 1fr; }
     .solid-zone section { padding: 48px 24px; }
@@ -561,9 +608,13 @@
 <div id="sf-label" aria-hidden="true">
   <div class="sub">Multi-UAV Path Planning</div>
 </div>
+<div id="scroll-hint" aria-hidden="true">
+  <span class="txt">Scroll down</span>
+  <span class="chev">▾</span>
+</div>
 <div id="sicily-label" aria-hidden="true">
   <div class="big">Sicily</div>
-  <div class="sub">Where it all began. To stay true to my origins, every project comes paired with a traditional Sicilian dish or dessert. Enjoy the menu!</div>
+  <div class="sub">Where it all began.</div>
 </div>
 
 <header class="topbar">
@@ -592,9 +643,10 @@
 
   <section id="profile" class="panel-section">
     <div class="section-head"><span class="num">01</span><h2>Profile</h2></div>
-    <p>Hi, I'm <strong>Giorgio Morra</strong>, a passionate engineer and researcher specializing in navigation, high-level control, and perception for exploration vehicles. I thrive at the intersection of robotics, autonomy, and real-world impact, with a focus on the full autonomy stack — from sensing and state estimation to planning and control.</p>
-    <p>I love building systems that sense, decide, and move through worlds we haven't explored yet.</p>
+    <p>Hi, I'm <strong>Giorgio Morra</strong>, born in Sicily — the land that gave the world Archimedes' pi and canned tuna in oil. Matching the tuna is out of reach, so I settle for being a passionate engineer and researcher specializing in navigation, high-level control, and perception for exploration vehicles. I thrive at the intersection of robotics, autonomy, and real-world impact, with a focus on the full autonomy stack — from sensing and state estimation to planning and control. I love building systems that sense, decide, and move through worlds we haven't explored yet.</p>
+  </section>
 
+  <section id="experience" class="panel-section">
     <h3 class="profile-sub">Experience Timeline</h3>
     <ul class="timeline">
       <li><span class="tl-date mono">2026 (expected)</span><span>M.Sc. Mechanical Engineering — Mechatronics &amp; Robotics, <strong>Politecnico di Milano</strong></span></li>
@@ -622,7 +674,6 @@
         <div class="project-cover" style="background-image:url('Files%20and%20projects/Terrain%20Relative%20Navigation%20for%20Venus%20Aerobot%20Balloon/Preview/Logo-NASA-icon-PNG.avif');"></div>
         <h3><a href="Files%20and%20projects/Terrain%20Relative%20Navigation%20for%20Venus%20Aerobot%20Balloon/">Terrain Relative Navigation for Venus Aerobot Balloon</a></h3>
         <p class="desc">Brief overview and purpose of the project.</p>
-        <span class="food mono">Frutta martorana</span>
       </div>
 
       <div class="project">
@@ -630,7 +681,6 @@
         <h3><a href="progetto-uav.html">UAV Autonomous Navigation in Urban Environment</a></h3>
         <div class="tags"><span>A* Path Planning</span><span>Model Predictive Control</span><span>3D Navigation</span><span>Dynamic Obstacle Avoidance</span></div>
         <p class="desc">Navigation pipeline combining A* global path planning with non-linear MPC for dynamic obstacle avoidance.</p>
-        <span class="food mono">Cannolo</span>
       </div>
 
       <div class="project">
@@ -638,7 +688,6 @@
         <h3><a href="scara-robot.html">Design, Simulation, and Dynamic Modeling of a 4-DOF SCARA Robot</a></h3>
         <div class="tags"><span>Mechanical design</span><span>Trajectory planning</span><span>MATLAB &amp; Simscape</span><span>Epson SCARA programming</span></div>
         <p class="desc">Full development of a 4-DOF SCARA: CAD design, kinematics, trajectory planning and Simscape-validated dynamics.</p>
-        <span class="food mono">Caponata</span>
       </div>
 
       <div class="project">
@@ -646,7 +695,6 @@
         <h3><a href="robotic-exoskeleton.html">1-DoF Robotic Exoskeleton for Elbow Rehabilitation</a></h3>
         <div class="tags"><span>Python</span><span>Arduino</span><span>Admittance control</span><span>Teach-and-play rehabilitation</span></div>
         <p class="desc">Collaborative exoskeleton for post-stroke elbow rehabilitation with teach-and-play control on Arduino.</p>
-        <span class="food mono">Arancina</span>
       </div>
 
       <div class="project">
@@ -654,7 +702,6 @@
         <h3><a href="license-plate-segmentation.html">License Plate Segmentation and Character Extraction</a></h3>
         <div class="tags"><span>OpenCV</span><span>Gaussian filtering</span><span>Canny edge detection</span><span>Template matching</span></div>
         <p class="desc">OpenCV pipeline for plate detection, perspective correction, character segmentation and symbol recognition.</p>
-        <span class="food mono">Granita con brioche</span>
       </div>
 
       <div class="project">
@@ -662,7 +709,6 @@
         <h3><a href="washing-machine.html">Mechanical Design and Structural Dynamics of a Front-Loading Washing Machine</a></h3>
         <div class="tags"><span>Rapid prototyping</span><span>Mechanical design</span><span>CATIA V5</span><span>Tuned mass dampers</span></div>
         <p class="desc">Design of a 6 kg washing machine: drivetrain sizing, CATIA V5 drawings, FEM validation and vibration control.</p>
-        <span class="food mono">Cassata</span>
       </div>
 
       <div class="project">
@@ -670,7 +716,6 @@
         <h3><a href="experimental-modal-analysis.html">Experimental Modal Analysis and Parameter Identification of a Light Rail Wheel</a></h3>
         <div class="tags"><span>Modal analysis</span><span>Mode shapes</span><span>Parameter ID</span><span>Frequency response</span></div>
         <p class="desc">Vibration analysis of a light rail wheel via modal parameter extraction and experimental curve fitting.</p>
-        <span class="food mono">Pasta alla Norma</span>
       </div>
 
       <div class="project">
@@ -678,7 +723,6 @@
         <h3><a href="harbour-crane.html">Finite Element Analysis and Dynamic Simulation of a Harbour Crane</a></h3>
         <div class="tags"><span>2D FEM model assembly</span><span>Modal eigenvalue analysis</span><span>Frequency response functions</span><span>Moving-load response</span></div>
         <p class="desc">Structural and dynamic FEM analysis of a harbour crane with modal solution, FRFs and moving-load simulation.</p>
-        <span class="food mono">Pane e panelle</span>
       </div>
 
 
@@ -799,12 +843,16 @@
 
     /* Scroll-driven camera: the map starts on the downtown skyscrapers with
        the drone trajectories, zooms far out and glides across to Sicily,
-       arriving just before the Projects section comes into view. */
+       arriving just as the Profile section comes into view. On desktop the
+       camera centers west of the island so Sicily sits in the right half of
+       the screen, next to the Profile panel. */
     var isPhone = window.matchMedia('(max-width: 900px)').matches;
     var VIEW_START = isPhone
       ? { longitude: -122.397, latitude: 37.795, zoom: 14.5, pitch: 55, bearing: 0 }   // telefono
       : { longitude: -122.40, latitude: 37.792, zoom: 15.2, pitch: 60, bearing: 0 };  // desktop
-    var VIEW_SICILY = { longitude: 14.15, latitude: 37.55, zoom: 6.2, pitch: 0, bearing: 0 };
+    var VIEW_SICILY = isPhone
+      ? { longitude: 14.15, latitude: 37.55, zoom: 6.2, pitch: 0, bearing: 0 }
+      : { longitude: 8.0, latitude: 37.55, zoom: 5.5, pitch: 0, bearing: 0 };
 
     function lerp(a, b, t) { return a + (b - a) * t; }
     function smoothstep(t) { return t * t * (3 - 2 * t); }
@@ -812,15 +860,17 @@
 
     var sicilyLabel = document.getElementById('sicily-label');
     var sfLabel = document.getElementById('sf-label');
+    var scrollHint = document.getElementById('scroll-hint');
     var lastP = -1;
     var ticking = false;
 
     function updateCamera() {
       ticking = false;
       if (!mapReady) return;
+      var profile = document.getElementById('profile');
       var projects = document.getElementById('projects');
       var vh = window.innerHeight;
-      var end = Math.max(1, projects.offsetTop - vh * 1.6);
+      var end = Math.max(1, profile.offsetTop - vh * 0.7);
       var t = clamp01(window.scrollY / end);
       var p = smoothstep(t);
 
@@ -841,6 +891,9 @@
 
       // SAN FRANCISCO label is visible on the intro view and fades out early in the flight
       sfLabel.style.opacity = (1 - clamp01(p / 0.25)).toFixed(3);
+
+      // scroll hint disappears as soon as the user starts scrolling
+      scrollHint.style.opacity = (1 - clamp01(p / 0.08)).toFixed(3);
 
       if (Math.abs(p - lastP) < 0.0004) return;
       lastP = p;
