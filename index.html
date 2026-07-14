@@ -295,7 +295,9 @@
   /* "SICILY" label that fades in over the island on arrival */
   #sicily-label {
     position: fixed;
-    top: 44%;
+    /* the phone map view centers exactly on Sicily (lon 14.15, lat 37.55),
+       so the island's centre is the viewport centre */
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 0;
@@ -321,10 +323,12 @@
     margin-left: auto;
     margin-right: auto;
   }
-  /* on desktop the label sits over the island, in the right strip next to the Profile */
+  /* on desktop the label sits over the island, in the right strip next to the Profile.
+     The map centres on lon 8.0 at zoom 5.5, so Sicily (lon 14.15) sits a fixed
+     6.15° * (512*2^5.5/360) ≈ 396px to the right of the viewport centre. */
   @media (min-width: 901px) {
     #sicily-label {
-      left: 79%;
+      left: calc(50% + 396px);
       width: 34vw;
     }
     #sicily-label .sub { font-size: clamp(0.75rem, 1vw, 0.9rem); }
@@ -409,7 +413,24 @@
   .now-box .now-org strong { font-size: 1.02rem; }
   #experience .now-box p { margin-bottom: 0; font-size: 0.95rem; }
   @media (max-width: 900px) {
-    .timeline li { grid-template-columns: 1fr; gap: 2px; }
+    .timeline { gap: 16px; }
+    .timeline li {
+      grid-template-columns: 1fr;
+      gap: 3px;
+      position: relative;
+      padding-left: 18px;
+      border-left: 1px solid var(--border);
+    }
+    .timeline li::before {
+      content: '';
+      position: absolute;
+      left: -4px;
+      top: 5px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
     .tl-date { text-align: left; }
   }
   .facts {
@@ -696,9 +717,9 @@
     <ul class="timeline">
       <li><span class="tl-date mono">Oct, 2026 (expected)</span><span>M.Sc. Mechanical Engineering — Mechatronics &amp; Robotics, <strong>Politecnico di Milano</strong></span></li>
       <li><span class="tl-date mono">Dec 2025 – Present</span><span>Visiting Research Student, <strong>NASA JPL</strong> — Master's thesis on the Venus Variable Altitude Aerobot</span></li>
-      <li><span class="tl-date mono">—</span><span>International Mobility Extra-EU, <strong>Pontificia Universidad Javeriana</strong>, Colombia</span></li>
+      <li><span class="tl-date mono">Jan 2025 – Jun 2025</span><span>International Mobility Extra-EU, <strong>Pontificia Universidad Javeriana</strong>, Colombia</span></li>
       <li><span class="tl-date mono">2020 – 2023</span><span>B.Sc. Mechanical Engineering, <strong>Politecnico di Milano</strong></span></li>
-      <li><span class="tl-date mono">—</span><span>Erasmus+ Program, <strong>Universidad Pontificia Comillas</strong>, Spain</span></li>
+      <li><span class="tl-date mono">Aug 2022 – Jan 2023</span><span>Erasmus+ Program, <strong>Universidad Pontificia Comillas</strong>, Spain</span></li>
     </ul>
 
     <div class="now-box">
@@ -717,8 +738,9 @@
     <div class="projects-grid" id="projects-grid">
       <div class="project">
         <div class="project-cover" style="background-image:url('Files%20and%20projects/Terrain%20Relative%20Navigation%20for%20Venus%20Aerobot%20Balloon/Preview/Logo-NASA-icon-PNG.avif');"></div>
-        <h3><a href="Files%20and%20projects/Terrain%20Relative%20Navigation%20for%20Venus%20Aerobot%20Balloon/">Terrain Relative Navigation for Venus Aerobot Balloon</a></h3>
-        <p class="desc">Brief overview and purpose of the project.</p>
+        <h3>Terrain Relative Navigation for Venus Aerobot Balloon</h3>
+        <div class="tags"><span>Work in progress</span></div>
+        <p class="desc">Master's thesis research at NASA JPL — page coming soon.</p>
       </div>
 
       <div class="project" id="project-uav">
@@ -899,7 +921,7 @@
        the screen, next to the Profile panel. */
     var isPhone = window.matchMedia('(max-width: 900px)').matches;
     var VIEW_START = isPhone
-      ? { longitude: -122.397, latitude: 37.7999, zoom: 13.3, pitch: 55, bearing: 0 }   // telefono
+      ? { longitude: -122.397, latitude: 37.796, zoom: 13.6, pitch: 55, bearing: 0 }   // telefono
       : { longitude: -122.40, latitude: 37.792, zoom: 15.2, pitch: 60, bearing: 0 };  // desktop
     var VIEW_SICILY = isPhone
       ? { longitude: 14.15, latitude: 37.55, zoom: 6.2, pitch: 0, bearing: 0 }
